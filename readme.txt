@@ -1,9 +1,9 @@
 === MG Post Contributors ===
 
-Contributors: mahesh901122
+Contributors: Mahesh901122
 Plugin Name: MG Post Contributors 
-Plugin URI: 
-Tags: post, author, contributor
+Plugin URI: http://wordpress.org/plugins/mg-post-contributors
+Tags: post, author, contributors
 Author URI: http://mgwebthemes.com
 Author: Mahesh Waghmare
 Donate link: 
@@ -13,14 +13,14 @@ Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This plugin help admin user to select multiple authors or contributors of the post. 
-
 
 == Description ==
 
 This plugin help admin user to select multiple authors or contributors of the post, By simply selecting those authors or contributors from post editor window.
 This plugin supports existing post and for new posts.
 
+
+Development for this plugin can be found on GitHub: https://github.com/maheshwaghmare/mg-post-contributors
 
 == Installation ==
 
