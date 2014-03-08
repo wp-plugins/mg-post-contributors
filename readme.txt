@@ -19,17 +19,22 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 This plugin help admin user to select multiple authors or contributors of the post, By simply selecting those authors or contributors from post editor window.
 This plugin supports existing post and for new posts.
 
-
 Development for this plugin can be found on GitHub: https://github.com/maheshwaghmare/mg-post-contributors
-
 
 <h2><strong> == See Demo == </strong></h2>
 <p> Click following link to see how it shown at article page. </p>
 <p><a href="http://mthemes.comuv.com/how-to-use-mg-post-contributor/">http://mthemes.comuv.com/how-to-use-mg-post-contributor/</a></p>
 
+<h2><strong> == How to Use == </strong></h2>
+<ol type='1'>
+ <li><strong> NEW POST :</strong> <p>	Create new post by <strong> POST->NEW POST </strong>. 
+			Enter post Title, Description and click <strong> PUBLISH </strong>. To see result click "View Post". </p></li>
+ <li><strong> EXISTING POST :</strong> <p>	Click <strong> POST->ALL POST </strong> select post which you want to add contributors. 
+			Select Contributors/Authors of this post and <strong> UPDATE </strong>. To see result click "View Post". </p></li>
+</ol>
 
 <h2><strong> == Try Demo == </strong></h2>
-<p> Login to http://mthemes.comuv.com/wp-admin/ to use live </strong>"MG Post Contributors" .</strong> </p>
+<p> Login to http://mthemes.comuv.com/wp-admin/ to use live </strong>"MG Post Contributors" .</strong> 
 <ul>
 	<li>User Name : <strong>demo</strong></li>
 	<li>Password : <strong>demo</strong></li>
