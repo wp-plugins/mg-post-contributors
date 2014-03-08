@@ -22,19 +22,16 @@ This plugin supports existing post and for new posts.
 Development for this plugin can be found on GitHub: https://github.com/maheshwaghmare/mg-post-contributors
 
 <h2><strong> == See Demo == </strong></h2>
-<p> Click following link to see how it shown at article page. </p>
-<p><a href="http://mthemes.comuv.com/how-to-use-mg-post-contributor/">http://mthemes.comuv.com/how-to-use-mg-post-contributor/</a></p>
+Click following link to see how it shown at article page.<br />
+<a href="http://mthemes.comuv.com/how-to-use-mg-post-contributor/">http://mthemes.comuv.com/how-to-use-mg-post-contributor/</a>
 
 <h2><strong> == How to Use == </strong></h2>
-<ol type='1'>
- <li><strong> NEW POST :</strong> <p>	Create new post by <strong> POST->NEW POST </strong>. 
-			Enter post Title, Description and click <strong> PUBLISH </strong>. To see result click "View Post". </p></li>
- <li><strong> EXISTING POST :</strong> <p>	Click <strong> POST->ALL POST </strong> select post which you want to add contributors. 
-			Select Contributors/Authors of this post and <strong> UPDATE </strong>. To see result click "View Post". </p></li>
-</ol>
+<strong> 1. New Post :</strong> Create new post by "POST->NEW POST". Enter post Title, Description and click "PUBLISH". To see result click "View Post". <br />
+<strong> 2. Existing Post :</strong> Click "POST->ALL POST", Select post which you want to add contributors. 
+			Select Contributors / Authors of this post and "UPDATE". To see result click "View Post".<br />
 
 <h2><strong> == Try Demo == </strong></h2>
-<p> Login to http://mthemes.comuv.com/wp-admin/ to use live </strong>"MG Post Contributors" .</strong> 
+Login to http://mthemes.comuv.com/wp-admin/ to use live "MG Post Contributors".
 <ul>
 	<li>User Name : <strong>demo</strong></li>
 	<li>Password : <strong>demo</strong></li>
