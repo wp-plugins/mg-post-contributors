@@ -1,4 +1,4 @@
-.post .mg-contributors {
+.post .entry-content .mg-contributors {
   border: 1px solid #CCCDDD;
   width: 100%;
   overflow: auto;
@@ -7,7 +7,7 @@
   margin-bottom: 1em;
 }
 
-.post  .mg-contributors h2 {
+.post  .entry-content  .mg-contributors h2 {
 	font-size: 20px;
 	border-bottom: 1px solid #dddddd;
 	padding-bottom: 10px;
@@ -15,36 +15,36 @@
 	color: #818181;
 }
 
-.post  .mg-contributors ul {
+.post  .entry-content   .mg-contributors ul {
 	list-style: none;
 	margin-top: 10px;
 }
 
-.post  .mg-contributors ul li {
+.post  .entry-content  .mg-contributors ul li {
 	float: left;
 	margin-right: 1em;
 	margin-bottom: 10px;
 }
 
-.post  .mg-contributors .avatar {
+.post  .entry-content   .mg-contributors .avatar {
   border: 1px solid #DDDDDD;
   border-radius: 5px 5px 5px 5px;
   min-height: 50px;
   min-width: 50px;
 }
 
-.post .mg-contributors h4 , .post .mg-contributors h5{
+.post .entry-content  .mg-contributors h4 , .entry-content  .post .mg-contributors h5{
   color: #6C6C6C;
   line-height: 1;
   padding: 0;
 }
 
-.post  .mg-contributors h4{
+.post  .entry-content  .mg-contributors h4{
 	margin: 10px 0 0;
 	font-size: 15px;
 }
 
-.post  .mg-contributors h5{
+.post  .entry-content   .mg-contributors h5{
 	margin: 5px 0 0;
 	font-size: 12px;
 }
