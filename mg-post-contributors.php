@@ -232,9 +232,6 @@ function show_contributors_after_post_contents($content) {
 	$content_post = get_post($post_id);
 	$content = $content_post->post_content;
 	
-	//	SHOW Contents of the post
-	echo $content;
-	
 	// Check post id is not EMPTY
 	if ( !empty( $post_id ) ) {
 		
@@ -274,9 +271,11 @@ function show_contributors_after_post_contents($content) {
 		}
 	}
 	
+	//	SHOW Contents of the post
 	
+
 	//	Show Contributors List
-	echo $show_contributors;
+	return $content . $show_contributors;
 	
 }
 
@@ -286,4 +285,4 @@ function show_contributors_after_post_contents($content) {
 wp_enqueue_style( 'wp_enqueue_styles', plugins_url( '/css/style.css', __FILE__ ) );
 
 	
-?>	
+?>
