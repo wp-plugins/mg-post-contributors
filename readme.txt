@@ -22,6 +22,12 @@ This plugin supports existing post and for new posts.
 
 Development for this plugin can be found on GitHub: https://github.com/maheshwaghmare/mg-post-contributors
 
+<br />
+
+<h2> See Demo </h2>
+<p><a href="http://mthemes.comuv.com/how-to-use-mg-post-contributor/">http://mthemes.comuv.com/how-to-use-mg-post-contributor/</a></p>
+
+
 == Installation ==
 
 1. Upload `mg-post-contributors` to the `/wp-content/plugins/` directory
