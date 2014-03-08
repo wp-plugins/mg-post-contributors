@@ -22,10 +22,19 @@ This plugin supports existing post and for new posts.
 
 Development for this plugin can be found on GitHub: https://github.com/maheshwaghmare/mg-post-contributors
 
-<br />
 
-<h2> See Demo </h2>
+<h2><strong> == See Demo == </strong></h2>
+<p> Click following link to see how it shown at article page. </p>
 <p><a href="http://mthemes.comuv.com/how-to-use-mg-post-contributor/">http://mthemes.comuv.com/how-to-use-mg-post-contributor/</a></p>
+
+
+<h2><strong> == Try Demo == </strong></h2>
+<p> Login to http://mthemes.comuv.com/wp-admin/ to use live </strong>"MG Post Contributors" .</strong> </p>
+<ul>
+	<li>User Name : <strong>demo</strong></li>
+	<li>Password : <strong>demo</strong></li>
+</ul>
+
 
 
 == Installation ==
