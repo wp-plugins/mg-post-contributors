@@ -43,7 +43,7 @@ http://mthemes.comuv.com/how-to-use-mg-post-contributor/
 Login to http://mthemes.comuv.com/wp-admin/ to use live "MG Post Contributors".
 
     User Name : demo
-    Password : demo
+    Password : demo 
 
 == Installation ==
 
