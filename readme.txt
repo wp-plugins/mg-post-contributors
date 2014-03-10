@@ -19,6 +19,9 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 This plugin help admin user to select multiple authors or contributors of the post, By simply selecting those authors or contributors from post editor window.
 This plugin supports existing post and for new posts.
 
+You can set how contributors shown after post contents by:
+"Setting->MG Post Contributor" and select options how do you want to show contributors on blog.
+
 Development for this plugin can be found on GitHub: https://github.com/maheshwaghmare/mg-post-contributors
 
 <h2><strong> == See Demo == </strong></h2>
