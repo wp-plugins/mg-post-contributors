@@ -1,48 +1,36 @@
-=== MG Post Contributors ===
-
-Contributors: Mahesh901122
-Plugin Name: MG Post Contributors 
-Plugin URI: http://wordpress.org/plugins/mg-post-contributors
-Tags: post, author, contributors
-Author URI: http://mgwebthemes.com
-Author: Mahesh Waghmare
-Donate link: 
+=== Plugin Name ===
+Contributors: http://profiles.wordpress.org/mahesh901122/profile
+Donate link: http://
+Tags: post, author
 Requires at least: 3.0.1
 Tested up to: 3.4
-Stable tag: 1.0
+Stable tag: 4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
+This plugin help admin user to select multiple authors or contributors of the post. 
 
 == Description ==
 
 This plugin help admin user to select multiple authors or contributors of the post, By simply selecting those authors or contributors from post editor window.
 This plugin supports existing post and for new posts.
 
-You can set how contributors shown after post contents by:
-"Setting->MG Post Contributor" and select options how do you want to show contributors on blog.
 
-Development for this plugin can be found on GitHub: https://github.com/maheshwaghmare/mg-post-contributors
+    Note that the `readme.txt` of the stable tag is the one that is considered the defining one for the plugin, so
+if the `/trunk/readme.txt` file says that the stable tag is `4.3`, then it is `/tags/4.3/readme.txt` that'll be used
+for displaying information about the plugin.  In this situation, the only thing considered from the trunk `readme.txt`
+is the stable tag pointer.  Thus, if you develop in trunk, you can update the trunk `readme.txt` to reflect changes in
+your in-development version, without having that information incorrectly disclosed about the current stable version
+that lacks those changes -- as long as the trunk's `readme.txt` points to the correct stable tag.
 
-<h2><strong> == See Demo == </strong></h2>
-Click following link to see how it shown at article page.<br />
-<a href="http://mthemes.comuv.com/how-to-use-mg-post-contributor/">http://mthemes.comuv.com/how-to-use-mg-post-contributor/</a>
-
-<h2><strong> == How to Use == </strong></h2>
-<strong> 1. New Post :</strong> Create new post by "POST->NEW POST". Enter post Title, Description and click "PUBLISH". To see result click "View Post". <br />
-<strong> 2. Existing Post :</strong> Click "POST->ALL POST", Select post which you want to add contributors. 
-			Select Contributors / Authors of this post and "UPDATE". To see result click "View Post".<br />
-
-<h2><strong> == Try Demo == </strong></h2>
-Login to http://mthemes.comuv.com/wp-admin/ to use live "MG Post Contributors".
-<ul>
-	<li>User Name : <strong>demo</strong></li>
-	<li>Password : <strong>demo</strong></li>
-</ul>
-
-
+    If no stable tag is provided, it is assumed that trunk is stable, but you should specify "trunk" if that's where
+you put the stable version, in order to eliminate any doubt.
 
 == Installation ==
+
+This section describes how to install the plugin and get it working.
+
+e.g.
 
 1. Upload `mg-post-contributors` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
@@ -51,27 +39,3 @@ Login to http://mthemes.comuv.com/wp-admin/ to use live "MG Post Contributors".
 5. Click on Publish or Update.
 6. To see result click "View Post"
 
-
-== Frequently Asked Questions ==
-1. How to Activate 'mg-post-contributors' plugin?
-   After download plugin click on 'Activate'.
-   
-
-== Screenshots ==
-
-1. Activate 'mg-post-contributor' plugin
-2. Add new post to create contributors list by POST->ADD NEW
-3. Select list of contributors by simply selecting check boxes
-4. After publish click "View Details" to see result
-5. List of selected contributors below post content
-
-  
-== Changelog ==
-= 1. - 07/03/2014 =
-* Tweak - Active plugin
-
-== Upgrade Notice ==
-= 1.0 =
-  1.0 is a major update.
-
-== Donations ==
