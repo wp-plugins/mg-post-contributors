@@ -25,12 +25,12 @@ You can set how contributors shown after post contents by: "Setting->MG Post Con
 Development for this plugin can be found on 
 GitHub: https://github.com/maheshwaghmare/mg-post-contributors 
 
-== See Demo == 
+<strong> See Demo </strong>
 
 Click following link to see how it shown at article page. 
 http://mthemes.comuv.com/how-to-use-mg-post-contributor/ 
 
-== How to Use == 
+<strong> How to Use </strong>
 
 1. New Post : Create new post by "POST->NEW POST". Enter post Title, Description and click "PUBLISH". 
 				To see result click "View Post". 
@@ -38,14 +38,14 @@ http://mthemes.comuv.com/how-to-use-mg-post-contributor/
 2. Existing Post : Click "POST->ALL POST", Select post which you want to add contributors. 
 				Select Contributors / Authors of this post and "UPDATE". To see result click "View Post". 
 				
-== Try Demo == 
+<strong> Try Demo </strong>
 
 Login to http://mthemes.comuv.com/wp-admin/ to use live "MG Post Contributors".
 
     User Name : demo
-    Password : demo
+    Password : demo 
 
-
+	
 == Installation ==
 
 1. Upload `mg-post-contributors` to the `/wp-content/plugins/` directory
