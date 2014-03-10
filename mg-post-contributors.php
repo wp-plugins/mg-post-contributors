@@ -13,7 +13,7 @@
  * Version:         1.0.
  * Requires at least: 3.0.1
  * Tested up to: 	3.4
- * Stable tag: 		4.3
+ * Stable tag: 		1.0
  * Text Domain:     mg-contributor
  * License:         GPL2+
  * License URI:     http://www.gnu.org/licenses/gpl-2.0.txt
