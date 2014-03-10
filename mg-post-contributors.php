@@ -4,12 +4,16 @@
  * The MG Post Contributor Plugin
  *
  * Plugin Name:     MG POST Contributors
+ * Contributors: 	mahesh901122
  * Plugin URI:      http://mgwebthemes.com
  * Github URI:      http://github.com/MGWebThemes/MGContributors
  * Description:     <strong> MG Post Contributors </strong> helps Admin users to set multiple authors for single post. Simply selecting authors check boxes at Post Editor. It show list of users with checkboxes and show them at POST. <strong> Getting started 1) Click 'Activate'  2)  Go to  POST->Add New </strong> OR Select existing one i.e. <strong> POST->All Posts </strong> and select Post <strong> 3) </strong> Choose <strong> 'Contributors' and click 'Publish'.</strong> To check result just click <strong> View Post </strong>.
  * Author:          Mahesh Waghmare
  * Author URI:      http://mgwebthemes.com
  * Version:         1.0.
+ * Requires at least: 3.0.1
+ * Tested up to: 	3.4
+ * Stable tag: 		4.3
  * Text Domain:     mg-contributor
  * License:         GPL2+
  * License URI:     http://www.gnu.org/licenses/gpl-2.0.txt
