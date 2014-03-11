@@ -10,17 +10,18 @@
 .post  .mg-contributors h2 {
 	font-size: 20px;
 	border-bottom: 1px solid #dddddd;
-	padding-bottom: 10px;
+	padding-bottom: 0 !important;
 	margin-left: 10px;
 	color: #818181;
 }
 
 .post  .mg-contributors ul {
 	list-style: none;
-	margin-top: 10px;
+	margin-top: 10px !important;
 }
 
 .post  .mg-contributors ul li {
+	list-style-type: none;
 	float: left;
 	margin-right: 1em;
 	margin-bottom: 10px;

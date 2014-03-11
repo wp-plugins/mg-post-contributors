@@ -28,7 +28,7 @@ GitHub: https://github.com/maheshwaghmare/mg-post-contributors
 <strong> See Demo </strong>
 
 Click following link to see how it shown at article page. 
-http://mthemes.comuv.com/how-to-use-mg-post-contributor/ 
+http://demo.mgwebthemes.com/how-to-use-mg-post-contributor/
 
 <strong> How to Use </strong>
 
@@ -38,9 +38,15 @@ http://mthemes.comuv.com/how-to-use-mg-post-contributor/
 2. Existing Post : Click "POST->ALL POST", Select post which you want to add contributors. 
 				Select Contributors / Authors of this post and "UPDATE". To see result click "View Post". 
 				
+<strong> Admin Panel </strong>
+
+Admin panel provides to change visual interface of contributor. You can set here who contributes shown after post contents. 
+Go to "Setting->MG Post Contributor" and update setting as you want. 
+
+
 <strong> Try Demo </strong>
 
-Login to http://mthemes.comuv.com/wp-admin/ to use live "MG Post Contributors".
+Login to http://demo.mgwebthemes.com/wp-admin/  to use live "MG Post Contributors".
 
     User Name : demo
     Password : demo 
@@ -71,6 +77,9 @@ Login to http://mthemes.comuv.com/wp-admin/ to use live "MG Post Contributors".
 
   
 == Changelog ==
+= 2. - 10/03/2014 =
+* Tweak - Add admin panel
+
 = 1. - 07/03/2014 =
 * Tweak - Active plugin
 

@@ -311,7 +311,12 @@ function show_contributors_after_post_contents($content) {
 		}
 	}
 	
-	return $show_contributors;
+
+	//Get Post Contetns
+	$content_post = get_post( $post_id );
+	$content = $content_post->post_content;
+
+	return $content . $show_contributors;
 	
 }
 
