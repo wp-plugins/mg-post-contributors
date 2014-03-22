@@ -32,11 +32,21 @@ http://demo.mgwebthemes.com/how-to-use-mg-post-contributor/
 
 <strong> How to Use </strong>
 
-1. New Post : Create new post by "POST->NEW POST". Enter post Title, Description and click "PUBLISH". 
-				To see result click "View Post". 
+<strong> 1. New Post: </strong> 
+	<ul>
+		<li>Create new post by "POST->NEW POST". </li>
+		<li>Enter post Title, Description and click "PUBLISH". </li>
+		<li>Add Contributors / Authors. </li>
+		<li>To see result click "View Post". </li>
+	</ul>
 
-2. Existing Post : Click "POST->ALL POST", Select post which you want to add contributors. 
-				Select Contributors / Authors of this post and "UPDATE". To see result click "View Post". 
+<strong> 2. Existing Post: </strong> 
+	<ul>
+		<li>Click "POST->ALL POST", </li>
+		<li>Select Contributors / Authors.</li>
+		<li>Click on "UPDATE". </li>
+		<li>To see result click "View Post". </li>
+	</ul>
 				
 <strong> Admin Panel </strong>
 
