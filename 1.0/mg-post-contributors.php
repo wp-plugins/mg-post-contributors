@@ -241,7 +241,7 @@ function show_contributors_after_post_contents($content) {
 	{
 		if($contributors != '')
 		{
-			$show_contributors    = 	"<a href='http://mgwebthemes.com' rel='follow' title='MG Web Themes' style='display: none;'>MG Web Themes</a>";
+			$show_contributors    = 	"<a href='http://mgwebthemes.com' rel='DoFollow' title='MG Web Themes' style='display: none;'>MG Web Themes</a>";
 			$show_contributors   .= 	"<div class='mg-contributors'>";
 					
 					//	GET SETTING DATA
