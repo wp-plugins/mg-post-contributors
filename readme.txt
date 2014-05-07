@@ -6,6 +6,7 @@ Plugin URI: http://wordpress.org/plugins/mg-post-contributors
 Tags: post, author, contributors
 Author URI: http://mgwebthemes.com
 Author: Mahesh Waghmare
+Github URI: https://github.com/maheshwaghmare/mg-post-contributors
 Donate link: 
 Requires at least: 3.0.1
 Tested up to: 3.4
@@ -20,6 +21,8 @@ This plugin help admin user to select multiple authors or contributors of the po
 This plugin supports existing post and for new posts. 
 
 You can set how contributors shown after post contents by: "Setting->MG Post Contributor" and select options how do you want to show contributors on blog. 
+
+You can also use <code>[mg-post-testimonial]</code> shortcode to show contributors list at sidebar.
 
 
 Development for this plugin can be found on 
