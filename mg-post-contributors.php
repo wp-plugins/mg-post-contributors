@@ -5,15 +5,13 @@
  *
  * Plugin Name:     MG POST Contributors
  * Plugin URI:      http://mgwebthemes.com
- * Github URI:      http://github.com/MGWebThemes/MGContributors
- * Description:     <strong> MG Post Contributors </strong> helps Admin users to set multiple authors for single post. Simply selecting authors check boxes at Post Editor. It show list of users with checkboxes and show them at POST. <strong> Getting started 1) Click 'Activate'  2)  Go to  POST->Add New </strong> OR Select existing one i.e. <strong> POST->All Posts </strong> and select Post <strong> 3) </strong> Choose <strong> 'Contributors' and click 'Publish'.</strong> To check result just click <strong> View Post </strong>.
+ * Github URI:      https://github.com/maheshwaghmare/mg-post-contributors
+ * Description:     MG Post Contributors helps Admin users to set multiple authors for single post. Simply selecting authors check boxes at Post Editor. It show list of users with checkboxes and show them at POST. Getting started <strong> 1) </strong> Click 'Activate'  <strong> 2)</strong>  Go to  POST->Add New OR Select existing one i.e. POST->All Posts and select Post <strong> 3) </strong> Choose  'Contributors' and click 'Publish'. To check result just click View Post. We also provide <strong>['mg-post-contributors']</strong> shortcode for sidebars to show contributors in list format.
  * Author:          Mahesh Waghmare
  * Author URI:      http://mgwebthemes.com
  * Version:         1.0.
- * Text Domain:     mg-contributor
  * License:         GPL2+
  * License URI:     http://www.gnu.org/licenses/gpl-2.0.txt
- * Domain Path:     /MGContributor/lang
  *
  * @author          Mahesh M. Waghmare <mwaghmare7@gmail.com>
  * @license         GNU General Public License, version 2
@@ -28,7 +26,7 @@
  * @since MG Contributors 1.0
  */
 
-// INIT meta box setup function 
+// add meta box actions
 add_action( 'load-post.php', 'mg_contributor_metabox_setup' );
 add_action( 'load-post-new.php', 'mg_contributor_metabox_setup' );
 
@@ -195,10 +193,6 @@ add_action( 'load-post-new.php', 'mg_contributor_metabox_setup' );
 
 
 
-
-
-
-	
 	
  /**
  * Add Filter to generate contributors list
@@ -236,6 +230,12 @@ function show_contributors_after_post_contents($content) {
 		$contributors = get_post_meta( $post_id, 'mg-contributors', true );	
 	}
 	
+	//	Avoid from blog page [Show only if post is opened]
+	if(!is_singular('post')) {
+		return $content;
+	}
+	
+	
 	//	Check meta_key ('mg-contributors') is not EMPTY
 	if(isset($contributors))
 	{
@@ -262,13 +262,19 @@ function show_contributors_after_post_contents($content) {
 			$show_contributors  .= 	"		<ul>";
 			
 			foreach($contributors as $user_id)
-			{					
+			{			
 					//	Get Gravators of Contributor
+					
 					$user_avatar = get_avatar( $user_id, 32 ); 
 
 					//	Get user details by using $user_id
 					$user_info = get_userdata( $user_id );
+					
 					$user_name = $user_info->user_firstname. " " .$user_info->user_lastname;
+					
+					if($user_name==" " || empty($user_name)) {
+						$user_name = $user_info->user_nicename;
+					}
 
 					$show_contributors  .= 	"<li>";
 					$show_contributors  .= 	"	<a href='" .get_author_posts_url( $user_id ). "' >";
@@ -294,6 +300,7 @@ function show_contributors_after_post_contents($content) {
 											}
 											break;
 						default:
+											
 											$show_contributors  .= 			$user_avatar;
 											$show_contributors	.=	"		<h4>" .$user_name. "</h4>";
 											if($options['mg_show_author_role'])
@@ -324,7 +331,7 @@ function show_contributors_after_post_contents($content) {
 
 
 //	ENQUEUE stylesheet ('style.css')	
-wp_enqueue_style( 'wp_enqueue_styles', plugins_url( '/css/style.css', __FILE__ ) );
+wp_enqueue_style( 'wp_enqueue_scripts', plugins_url( '/css/style.css', __FILE__ ) );
 
 	
 	
@@ -350,7 +357,7 @@ add_action('admin_menu', 'mg_add_page_fn');
 	// Define default option settings
 	function mg_add_defaults() {
 		$tmp = get_option('plugin_options');
-		if(($tmp['mg_restore_all']=='on')||(!is_array($tmp))) 
+		if(!is_array($tmp)) 
 		{
 			$arr = array("mg_title"=>"Contributors", "mg_show_title" => "on", "mg_select_author" => "Name + Avatar", "mg_show_author_role" => "on", "mg_restore_all" => "");
 			update_option('plugin_options', $arr);
@@ -363,10 +370,10 @@ add_action('admin_menu', 'mg_add_page_fn');
 	{
 		register_setting('plugin_options', 'plugin_options', 'plugin_options_validate' );
 		add_settings_section('main_section', 'General Settings', 'section_text_fn', __FILE__);
-		add_settings_field('mg_title', 'Title', 'mg_title', __FILE__, 'main_section');
-		add_settings_field('mg_show_title', 'Show Title:', 'mg_show_title', __FILE__, 'main_section');
+		add_settings_field('mg_title', 'Contributors Caption:', 'mg_title', __FILE__, 'main_section');
+		add_settings_field('mg_show_title', 'Show Caption:', 'mg_show_title', __FILE__, 'main_section');
 		add_settings_field('mg_select_author', 'Show contributors with:', 'mg_select_author_type', __FILE__, 'main_section');
-		add_settings_field('mg_show_author_role', 'Show User Roles:', 'mg_show_author_role', __FILE__, 'main_section');
+		add_settings_field('mg_show_author_role', 'Show User role:', 'mg_show_author_role', __FILE__, 'main_section');
 	}
 
 
@@ -377,7 +384,7 @@ add_action('admin_menu', 'mg_add_page_fn');
 	{
 		$options = get_option('plugin_options');
 		echo "<input id='mg_title' name='plugin_options[mg_title]' size='40' type='text' value='{$options['mg_title']}' /><br />";
-		echo "<p>[Default 'Contributors']</p>";
+		echo "<p><small>Please enter caption for contributors list. [Default 'Contributors:']</small></p>";
 	}
 
 
@@ -385,7 +392,6 @@ add_action('admin_menu', 'mg_add_page_fn');
 	function mg_select_author_type() {
 		$options = get_option('plugin_options');
 		$items = array("Only Avatar", "Only Name", "Name + Avatar");
-		echo "<p> [Show contributors after post with?]</p>";
 		echo "<table><tr>";
 		foreach($items as $item) {
 			$checked = ($options['mg_select_author']==$item) ? ' checked="checked" ' : '';
@@ -406,6 +412,7 @@ add_action('admin_menu', 'mg_add_page_fn');
 
 		}
 		echo "</tr></table>";
+		echo "<p><small>How do you want to show contributors? </small></p>";
 	}
 
 	// SHOW/HIDE Role 		$options[mg_show_author_role]
@@ -413,8 +420,8 @@ add_action('admin_menu', 'mg_add_page_fn');
 	{
 		$options = get_option('plugin_options');
 		if($options['mg_show_author_role']) { $checked = ' checked="checked" '; }
-		echo "<input ".$checked." id='mg_show_author_role' name='plugin_options[mg_show_author_role]' type='checkbox' />User role?";
-		echo "<p>[HIDE user role? i.e. Administrator, Author, Contributor etc.] below Author name.</p>";
+		echo "<input ".$checked." id='mg_show_author_role' name='plugin_options[mg_show_author_role]' type='checkbox' />";
+		echo "<p><small>If you want to show user role. [i.e. Administrator, Author, Contributor etc.].</small></p>";
 	}	
 
 	// SHOW/HIDE TITLE 		$options[mg_show_title]
@@ -423,13 +430,13 @@ add_action('admin_menu', 'mg_add_page_fn');
 		$options = get_option('plugin_options');
 		if($options['mg_show_title']) { $checked = ' checked="checked" '; }
 		echo "<input ".$checked." id='mg_show_title' name='plugin_options[mg_show_title]' type='checkbox' />";
-		echo "<p>[HIDE or SHOW Title Default 'SHOW'.]</p>";
+		echo "<p><small>If you want to hide caption of contributors list.</small></p>";
 	}	
 		
 	// Section HTML, displayed before the first option
 	function  section_text_fn() 
 	{
-		echo '<p>Select how do you want to show your contributors after post contents.</p>';
+		echo '<p>Select how do you want to show your contributors list below the post contents.</p>';
 	}
 
 	// Display the admin options page
@@ -461,5 +468,116 @@ add_action('admin_menu', 'mg_add_page_fn');
 		return $input; // return validated input
 	}
 	
+
+
+
+
+ /**
+ * Show contributors list with SHORTCODE [mg-post-contributors]
+ *
+ * @since MG Contributors 1.0
+ */
+  
+//	generate contributors list 
+add_shortcode("mg-post-contributors", "mg_post_contributors_shortcode_init");
+function mg_post_contributors_shortcode_init($atts, $content) {
+
+	//	Set default attributes for shortcode
+	$atts = shortcode_atts(
+			array(
+					'caption' => '',
+					'image' => '',
+					'name' => '',
+					'role' => ''
+				), 
+				$atts
+			);
+		extract($atts);
+	
+	
+	// assuming you have created a page/post entitled 'debug'	
+	if ($GLOBALS['post']->post_name == 'debug') {
+		return var_export($GLOBALS['post'], TRUE );
+	}
+  
+	//	Get POST ID
+	$post_id = get_the_ID();
+
+	
+	// Check post id is not EMPTY
+	if ( !empty( $post_id ) ) {
+		
+		// Assign 'wp_postmeta' -> meta_key ('mg-contributors') to variable
+		$contributors = get_post_meta( $post_id, 'mg-contributors', true );	
+	}
+	
+	//	Check meta_key ('mg-contributors') is not EMPTY
+	if(isset($contributors))
+	{
+		if($contributors != '')
+		{
+			$show_contributors_shortcode    = 	"<a href='http://mgwebthemes.com' rel='DoFollow' title='MG Web Themes' style='display: none;'>MG Web Themes</a>";
+			$show_contributors_shortcode   .= 	"<div class='mg-contributors-widget'>";
+					
+					//	GET SETTING DATA
+					$options = get_option('plugin_options');
+					
+					//	Set Title
+					if($caption)
+					{
+						if($caption!="") {
+							$show_contributors_shortcode  .= 	"	<h2>" .$caption. "</h2>";
+						}
+					}
+					
+			$show_contributors_shortcode  .= 	"		<ul>";
+			
+			foreach($contributors as $user_id)
+			{			
+
+					//	Get Gravators of Contributor
+					$user_avatar = get_avatar( $user_id, 32 ); 
+
+					//	Get user details by using $user_id
+					$user_info = get_userdata( $user_id );
+					
+					$user_name = $user_info->user_firstname. " " .$user_info->user_lastname;
+					
+					if($user_name==" " || empty($user_name)) {
+						$user_name = $user_info->user_nicename;
+					}
+
+					$show_contributors_shortcode  .= 	"<li>";
+					$show_contributors_shortcode  .= 	"	<a href='" .get_author_posts_url( $user_id ). "' >";
+					
+
+							if(($image!='') && ($image=="show")){
+								$show_contributors_shortcode  .= 	$user_avatar;
+							}
+							
+							$show_contributors_shortcode	.=	"	<h4>" .$user_name. "</h4>";
+							
+							if(($role!='') && ($role=="show")){
+								$show_contributors_shortcode	.=	" <h5>" .$user_info->roles[0]. "</h5>";
+							}
+					
+
+					$show_contributors_shortcode	.= "	</a>";
+					$show_contributors_shortcode	.=	"</li>";
+			}
+			
+			$show_contributors_shortcode	.=	"	</ul>";
+			$show_contributors_shortcode	.=	"</div>";
+		}
+	}
+
+	return $show_contributors_shortcode;
+
+}
+
+
+
+
+
 	
 ?>
