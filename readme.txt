@@ -65,6 +65,10 @@ Login to http://demo.mgwebthemes.com/wp-admin/  to use live "MG Post Contributor
     Password : demo 
 
 	
+<div class="video">
+	<iframe width="532" height="325" frameborder="0" allowfullscreen="" src="http://youtu.be/x03jmQ9ajUQ">
+</div>	
+	
 == Installation ==
 
 1. Upload `mg-post-contributors` to the `/wp-content/plugins/` directory
