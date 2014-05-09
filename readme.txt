@@ -64,9 +64,15 @@ Login to http://demo.mgwebthemes.com/wp-admin/  to use live "MG Post Contributor
     User Name : demo
     Password : demo 
 
-<div class="video">
-	<iframe width="532" height="325" frameborder="0" allowfullscreen="" src="https://www.youtube.com/watch?v=x03jmQ9ajUQ">
-</div>	
+<div class='video'>
+	<object width='532' height='325'>
+		<param name='movie' value='https://www.youtube.com/watch?v=x03jmQ9ajUQ?fs=1'></param> 
+		<param name='allowFullScreen' value='true'></param>
+		<param name='allowscriptaccess' value='never'></param>
+		<embed src='https://www.youtube.com/watch?v=x03jmQ9ajUQ?fs=1' type='application/ x-shockwave-flash' allowscriptaccess='never' allowfullscreen='true' width='532' height='325'>
+		</embed>
+	</object>
+</div>
 	
 == Installation ==
 
