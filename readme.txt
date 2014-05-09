@@ -64,7 +64,9 @@ Login to http://demo.mgwebthemes.com/wp-admin/  to use live "MG Post Contributor
     User Name : demo
     Password : demo 
 
-[youtube http://youtu.be/x03jmQ9ajUQ]	
+<div class="video">
+	<iframe width="532" height="325" frameborder="0" allowfullscreen="" src="https://www.youtube.com/watch?v=x03jmQ9ajUQ">
+</div>	
 	
 == Installation ==
 
