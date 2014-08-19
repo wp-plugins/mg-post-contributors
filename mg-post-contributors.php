@@ -3,7 +3,7 @@
 /**
  * The MG Post Contributor Plugin
  *
- * Plugin Name:     MG POST Contributors
+ * Plugin Name:     MG Post Contributors
  * Plugin URI:      http://mgwebthemes.com
  * Github URI:      https://github.com/maheshwaghmare/mg-post-contributors
  * Description:     MG Post Contributors helps Admin users to set multiple authors for single post. Simply selecting authors check boxes at Post Editor. It show list of users with checkboxes and show them at POST. Getting started <strong> 1) </strong> Click 'Activate'  <strong> 2)</strong>  Go to  POST->Add New OR Select existing one i.e. POST->All Posts and select Post <strong> 3) </strong> Choose  'Contributors' and click 'Publish'. To check result just click View Post. We also provide <strong>['mg-post-contributors']</strong> shortcode for sidebars to show contributors in list format.
@@ -342,7 +342,6 @@ function show_contributors_after_post_contents($content) {
 }
 
 
-
 /**
  * Enqueue scripts and styles for front-end.
  * Loads style
@@ -355,7 +354,5 @@ function mg_contributor_style() {
 }
 add_action( 'wp_enqueue_scripts', 'mg_contributor_style' );
 
-
-	
 	
 ?>
