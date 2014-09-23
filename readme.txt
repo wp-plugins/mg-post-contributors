@@ -27,7 +27,9 @@ GitHub: [https://github.com/maheshwaghmare/mg-post-contributors]
 Click following link to see how it shown at article page. 
 [http://demo.mgwebthemes.com/how-to-use-mg-post-contributor/]
 
-= Installation =
+Check other notes for more details...!
+
+== Installation ==
 
 1. Download and Upload `mg-post-contributors` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins'
@@ -37,7 +39,7 @@ Click following link to see how it shown at article page.
 6. To see result click on "View Post".
 
 
-= How to Use =
+== How to Use ==
 You can set contributors of the post for NEW or EXISTING Post. Follow below steps as per your requirement.
 
 <strong> 1. New Post: </strong> 
