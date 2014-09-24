@@ -28,6 +28,9 @@ if (!class_exists('mgpc')) {
             // Set the default arguments
             $this->setArguments();
 
+            // Set a few help tabs so you can see how it's done
+            $this->setHelpTabs(); 
+
             // Create the sections and fields
             $this->setSections();
 
@@ -64,17 +67,73 @@ if (!class_exists('mgpc')) {
 
        
 
+        // Remove the demo link and the notice of integrated demo from the redux-framework plugin
+        function remove_demo() {
+
+            // Used to hide the demo mode link from the plugin page. Only used when Redux is a plugin.
+            if (class_exists('ReduxFrameworkPlugin')) {
+                remove_filter('plugin_row_meta', array(ReduxFrameworkPlugin::instance(), 'plugin_metalinks'), null, 2);
+
+                // Used to hide the activation notice informing users of the demo panel. Only used when Redux is a plugin.
+                remove_action('admin_notices', array(ReduxFrameworkPlugin::instance(), 'admin_notices'));
+            }
+        }
+
         public function setSections() {
 
+            /**
+              Used within different fields. Simply examples. Search for ACTUAL DECLARATION for field examples
+             * */
+            // Background Patterns Reader
+            /*
+            $sample_patterns_path   = ReduxFramework::$_dir . '../settings/patterns/';
+            $sample_patterns_url    = ReduxFramework::$_url . '../settings/patterns/';
+            */
             $img_url = ReduxFramework::$_url . '../settings/img/';
+
+
+            //  Social Links
+            /*$social_links = array();
+
+            //  get profiles from array
+            global $profiles;
+            foreach($profiles as $socialProfile) {
+                    $profileLink = ucfirst($socialProfile);
+                    array_push($social_links, $profileLink );
+            }*/
+
+
+            /*$this->sections[] = array(
+                'icon'      => 'dashicons el-icon-cog',
+                'title'     => __('Basic', 'mgpc'),
+                'heading'   => __('Basic Settings:', 'mgpc'),
+                'desc'      => __('<p class="description">Contributors list always show after the post contents. Change this settings here...</p>', 'mgpc'),
+                'fields'    => array(
+                    array(
+                        'id'       => 'contributors-enable',
+                        'type'     => 'switch',
+                        'title'    => __('Enable Contributors List?', 'mgpc'),
+                        'subtitle' => __('Do you want to enable contributors role? If enable it show Contributors List after post contents. Default: True', 'mgpc'),
+                        'default'  => true
+                    ),
+                ),
+            );*/
             
             $this->sections[] = array(
                 'icon'      => 'el-icon-cogs',
                 'title'     => __('Basic', 'mgpc'),
                 'heading'   => __('Basic Settings : HELP', 'mgpc'),
+/*                'desc'      => __('', 'mgpc'),*/
                 'subsection' => false,
                 'fields'    => array(
-                 array(
+/*                    array(
+                        'id' => 'help-metabox',
+                        'type' => 'info',
+                        'icon' => 'el-icon-info-sign',
+                        'style' => 'success',
+                        'title' => __('Help : Meta Box Setting', 'mgpc'),
+                    ),
+*/                  array(
                             'id'        => 'help-exclude-roles',
                             'type'      => 'callback',
                             'title'     => __('Exclude Roles:', 'mgpc'),
@@ -97,6 +156,7 @@ if (!class_exists('mgpc')) {
                         'data'      => 'roles',
                         'multi'     => true,
                         'title'     => __('Exclude Roles:', 'mgpc-framework'),
+/*                        'subtitle'  => __('No validation can be done on this field type', 'mgpc-framework'),*/
                         'desc'      => __('Exclude unwanted roles from contributors list.', 'mgpc-framework'),
                         'hint'      => array(
                             'title'     => 'Exclude Roles',
@@ -110,6 +170,7 @@ if (!class_exists('mgpc')) {
                 'icon'      => 'el-icon-cogs',
                 'title'     => __('Structure', 'mgpc'),
                 'heading'   => __('Structure Settings : HELP', 'mgpc'),
+/*                'desc'      => __('', 'mgpc'),*/
                 'subsection' => false,
                 'fields'    => array(
                         array(
@@ -131,12 +192,16 @@ if (!class_exists('mgpc')) {
                     array(
                         'id'        => 'author-block-view',
                         'type'      => 'image_select',
+                        //'compiler'  => array(''),
                         'title'     => __('Author Block Layout:', 'mgpc'),
+/*                        'desc'      => __('<p class="description">Select Contributors basic structure.</p>', 'mgpc'),*/
                         'options'  => array(
                             '1'      => array(
+/*                                'title'   => 'Horizontal',*/
                                 'img'   => plugins_url( '../../images/view-horizontal-200.png', __FILE__ ),
                             ),
                             '2'      => array(
+/*                                'title'   => 'Verticle',*/
                                 'img'   => plugins_url( '../../images/view-verticle-200.png', __FILE__ ),
                             )
                         ),
@@ -232,6 +297,26 @@ if (!class_exists('mgpc')) {
                         'off'       => 'Hide',
                         'required'  => array('enable-block-meta', "=", 1),
                     ),
+                    /*array(
+                        'id'        => 'sort-social-links',
+                        'type'      => 'sortable',
+                        'mode'      => 'checkbox', // checkbox or text
+                        'title'     => __('Sortable Text Option', 'mgpc'),
+                        'subtitle'  => __('Define and reorder these however you want.', 'mgpc'),
+                        'desc'      => __('This is the description field, again good for additional info.', 'mgpc'),
+                        'options'   => $social_links, 
+                    ),*/
+                    /*array(
+                        'id'        => 'add-social-links',
+                        'type'      => 'switch',
+                        'title'     => __('Create Social Links:', 'mgpc'),
+                        'subtitle'  => __('Do you want to create social link fields at user profile.', 'mgpc'),
+                        'desc'      => __('If enable, Social links add at at User Profile. Goto <i>(Users -> Your Profile)</i>.', 'mgpc'),
+                        'default'   => 0,
+                        'on'        => 'Enabled',
+                        'off'       => 'Disabled',
+                    ),*/
+
                 ),
             );
             $this->sections[] = array(
@@ -1194,8 +1279,10 @@ if (!class_exists('mgpc')) {
                         'id'        => 'mgpc-additional-code-css',
                         'type'      => 'ace_editor',
                         'title'     => __('CSS', 'mgpc'),
+/*                        'subtitle'  => __('Paste your CSS code here.', 'mgpc'),*/
                         'mode'      => 'css',
                         'theme'     => 'monokai',
+/*                        'desc'      => 'Possible modes can be found at <a href="http://ace.c9.io" target="_blank">http://ace.c9.io/</a>.',*/
                         'default'   => "/* Custom CSS by MG POST CONTRIBUTORS */",
                         'hint'      => array(
                             'title'     => 'CSS',
@@ -1203,7 +1290,18 @@ if (!class_exists('mgpc')) {
                         ),
 
                     ),
-                    array(
+/*                    array(
+                        'id'        => 'mgpc-additional-code-css-print-at',
+                        'type'      => 'button_set',
+                        'title'     => __('Add CSS on section:', 'mgpc'),
+                        'desc'      => __('<small><i>Default: Header</i></small>', 'mgpc'),
+                        'options'   => array(
+                            '1' => 'Header', 
+                            '2' => 'Footer'
+                        ), 
+                        'default'   => '1'
+                    ),
+*/                    array(
                         'id'   =>'divider-mgpc-additional-code-css',
                         'type' => 'divide'
                     ),
@@ -1220,6 +1318,17 @@ if (!class_exists('mgpc')) {
                             'content'   => 'Here, You can add custom JS code as per user requirement. <small><i>Default: empty</i></small>.',
                         ),
                     ),
+                    /*array(
+                        'id'        => 'mgpc-additional-code-js-print-at',
+                        'type'      => 'button_set',
+                        'title'     => __('Add JS on section:', 'mgpc'),
+                        'desc'      => __('<small><i>Default: Footer</i></small>', 'mgpc'),
+                        'options'   => array(
+                            '1' => 'Header', 
+                            '2' => 'Footer'
+                        ), 
+                        'default'   => '2'
+                    ),*/
                     array(
                         'id'   =>'divider-mgpc-additional-code-js',
                         'type' => 'divide'
@@ -1282,6 +1391,23 @@ if (!class_exists('mgpc')) {
                     ),
                 ),
             );
+
+            /*$this->sections[] = array(
+                'icon'      => 'el-icon-idea',
+                'title'     => __('Support & Reviews', 'mgpc'),
+                'heading'   => __('Support & Reviews:', 'mgpc'),
+                'desc'      => __('<p class="description">Check our another usefull wordpress plugins...</p>', 'mgpc'),
+                'fields'    => array(
+                    array(
+                            'id'        => 'mgms-dynamic-enqueue-stat',
+                            'type'      => 'callback',
+                            'title'     => __('Your Dynamic Enqueue Styles:', 'mgpc'),
+                            'subtitle'  => __('This is a completely unique field type', 'mgpc'),
+                            'desc'      => __('This is created with a callback function, so anything goes in this field. Make sure to define the function though.', 'mgpc'),
+                            'callback'  => 'mgpc_submit_reviews'
+                    ),
+                ),
+            );*/
             
             $this->sections[] = array(
                 'title'     => __('Import / Export', 'mgpc'),
@@ -1299,7 +1425,25 @@ if (!class_exists('mgpc')) {
             );
         }
 
-        
+        public function setHelpTabs() {
+
+            // Custom page help tabs, displayed using the help API. Tabs are shown in order of definition.
+            $this->args['help_tabs'][] = array(
+                'id'        => 'mgpc-1',
+                'title'     => __('Theme Information 1', 'mgpc'),
+                'content'   => __('<p>This is the tab content, HTML is allowed.</p>', 'mgpc')
+            );
+
+            $this->args['help_tabs'][] = array(
+                'id'        => 'mgpc-2',
+                'title'     => __('Theme Information 2', 'mgpc'),
+                'content'   => __('<p>This is the tab content, HTML is allowed.</p>', 'mgpc')
+            );
+
+            // Set the help sidebar
+            $this->args['help_sidebar'] = __('<p>This is the sidebar content, HTML is allowed.</p>', 'mgpc');
+        }
+
         /**
 
           All the possible arguments for Redux.
@@ -1410,11 +1554,11 @@ if (!class_exists('mgpc')) {
 
             
 
-            $this->args['intro_text'] = __('<p><i>Welcome to <strong>MG Post Contributors</strong>...! Select multiple contributors of single post simply selecting those from post editor window. <small>Get in touch <strong>PRO</strong></i></small>.</p>', 'mgpc');
+            $this->args['intro_text'] = __('<p>Welcome to <strong>MG Post Contributors</strong>...! Select multiple contributors of single post simply selecting those from post editor window.</p>', 'mgpc');
             
 
             // Add content after the form.
-            $this->args['footer_text'] = __('<p><small><i>Thanks for using "MG Post Contributors". Special Thanks to @ReduxTeam. For any suggessions, changes, comments feel free to contact me on: [mwaghmare7@gmail.com]</i></small></p>', 'mgpc');
+            $this->args['footer_text'] = __('<p>Thanks for using "MG Post Contributors". Special Thanks to Redux Team.</p>', 'mgpc');
         }
 
     }
@@ -1424,6 +1568,36 @@ if (!class_exists('mgpc')) {
 }
 
 
+/*
+ * Add scripts ( JS/CSS ) Dynamically
+ *
+ * @function mgpc_submit_reviews
+ */
+/*if (!function_exists('mgpc_submit_reviews')):
+
+    function mgpc_submit_reviews($field, $value) { 
+    ?>
+        <div class="rating-wrapper">
+            <div class="rating">
+                <ul>
+                    <li class="star star-one el-icon-star-empty mg-icon"></li>
+                    <li class="star star-two el-icon-star-empty mg-icon"></li>
+                    <li class="star star-three el-icon-star-empty mg-icon"></li>
+                    <li class="star star-four el-icon-star-empty mg-icon"></li>
+                    <li class="star star-five el-icon-star-empty mg-icon"></li>
+                </ul>
+            </div>
+            <div class="result">
+                <i class="smily">:)</i>
+            </div>
+            <div class="form">
+                <input type=""
+            </div>
+        </div>
+    <?php
+    }
+
+endif;*/
 
 
 
@@ -1438,22 +1612,26 @@ if(!function_exists('mgms_our_plugin_list')):
     <div class="plugin-list-wrapper">
         <ul class="plugin-list">
             <li class="plugin">
-                <img src="<?php echo plugins_url( "../../images/MG-Post-Contributor-Banner-772-px-X-250-px.png", __FILE__ ); ?>" />
-                <h2 class="title">MG Post Contributors</h2>
-                <p class="description">Use this plugin to set multiple contributors for single post. Simply selecting contributors check boxes at Post Editor. It show list of users with checkboxes and show them at POST.</p>
-                <P class="links">
-                    <a style="float: left;" href="http://wordpress.org/plugins/mg-parallax-slider">Wordpress Repository</a>
-                    <a style="float: right;" href="http://wordpress.org/plugins/mg-parallax-slider">Plugin Home</a>
-                </p>
+                <img src="<?php echo plugins_url( "../../images/intro-mg-post-contributors.png", __FILE__ ); ?>" />
+                <div class="plugin-meta">
+                    <h2 class="title">MG Post Contributors</h2>
+                    <p class="description">Use this plugin to set multiple contributors for single post. Simply selecting contributors check boxes at Post Editor. It show list of users with checkboxes and show them at POST.</p>
+                    <P class="links">
+                        <a style="float: left;" href="http://wordpress.org/plugins/mg-parallax-slider">Wordpress Repository</a>
+                        <a style="float: right;" href="http://wordpress.org/plugins/mg-parallax-slider">Plugin Home</a>
+                    </p>
+                </div>
             </li>
             <li class="plugin">
-                <img src="<?php echo plugins_url( "../../images/mg-parallax-slider-introduction-300x79@2x.png", __FILE__ ); ?>" />
-                <h2 class="title">MG Parallax Slider</h2>
-                <p class="description">Create parallax slider for your website. It provide ultimate admin panel for slide customization. It has same admin panel for customization.</p>
-                <P class="links">
-                    <a style="float: left;" href="http://wordpress.org/plugins/mg-parallax-slider">Wordpress Repository</a>
-                    <a style="float: right;" href="http://wordpress.org/plugins/mg-parallax-slider">Plugin Home</a>
-                </p>
+                <img src="<?php echo plugins_url( "../../images/intro-mg-parallax-slider.png", __FILE__ ); ?>" />
+                <div class="plugin-meta">
+                    <h2 class="title">MG Parallax Slider</h2>
+                    <p class="description">Create parallax slider for your website. It's very simple and flexible to use. It has same admin panel for css styling and slide customization. To check how it works visit:</p>
+                    <P class="links">
+                        <a style="float: left;" href="http://wordpress.org/plugins/mg-parallax-slider">Wordpress Repository</a>
+                        <a style="float: right;" href="http://wordpress.org/plugins/mg-parallax-slider">Plugin Home</a>
+                    </p>
+                </div>
             </li>
         </ul>
     <?php }
@@ -1472,7 +1650,7 @@ if(!function_exists('mgms_our_theme_list')):
     <div class="theme-list-wrapper">
         <ul class="theme-list">
             <li class="theme">
-                <img src="<?php echo plugins_url( "../../images/Shivaji-The-Theme-1.0-Preview-Screenshot-780x300.png", __FILE__ ); ?>" style="width: 100% ! important;" />
+                <img src="<?php echo plugins_url( "../../images/shivaji-The-theme-1.0.png", __FILE__ ); ?>" style="width: 100% ! important;" />
             </li>
         </ul>
     </div>
@@ -1494,7 +1672,7 @@ if(!function_exists('help_exclude_roles')):
     <div class="theme-list-wrapper">
         <ul class="theme-list">
             <li class="theme">
-                <img src="<?php echo plugins_url( "../../images/help-exclude-roles.png", __FILE__ ); ?>" style="width: 100% ! important;" />
+                <img src="<?php echo plugins_url( "../../images/help-tab-exclude-roles.png", __FILE__ ); ?>" style="width: 100% ! important;" />
             </li>
         </ul>
     </div>
@@ -1513,7 +1691,7 @@ if(!function_exists('help_structure_settings')):
     <div class="theme-list-wrapper">
         <ul class="theme-list">
             <li class="theme">
-                <img src="<?php echo plugins_url( "../../images/help-structure-settings.png", __FILE__ ); ?>" style="width: 100% ! important;" />
+                <img src="<?php echo plugins_url( "../../images/help-tab-structure-settings.png", __FILE__ ); ?>" style="width: 100% ! important;" />
             </li>
         </ul>
     </div>
@@ -1531,7 +1709,7 @@ if(!function_exists('help_styling')):
     <div class="theme-list-wrapper">
         <ul class="theme-list">
             <li class="theme">
-                <img src="<?php echo plugins_url( "../../images/help-styling.png", __FILE__ ); ?>" style="width: 100% ! important;" />
+                <img src="<?php echo plugins_url( "../../images/help-tab-styling.png", __FILE__ ); ?>" style="width: 100% ! important;" />
             </li>
         </ul>
     </div>

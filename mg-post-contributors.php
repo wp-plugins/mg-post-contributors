@@ -1,15 +1,15 @@
 <?php
 
 /**
- * The MG Post Contributors Plugin
+ * The MG Post Contributor Plugin
  *
- * Plugin Name:     MG Post Contributors
+ * Plugin Name:     MG POST Contributors
  * Plugin URI:      http://mgwebthemes.com
  * Github URI:      https://github.com/maheshwaghmare/mg-post-contributors
- * Description:     MG Post Contributors helps Admin users to set multiple authors for the single post. Simply selecting authors check boxes at Post Editor. It show list of authors with checkboxes and show them at POST.
+ * Description:     MG Post Contributors helps Admin users to set multiple authors for single post. Simply selecting authors check boxes at Post Editor. It show list of users with checkboxes and show them at POST. Getting started <strong> 1) </strong> Click 'Activate'  <strong> 2)</strong>  Go to  POST->Add New OR Select existing one i.e. POST->All Posts and select Post <strong> 3) </strong> Choose  'Contributors' and click 'Publish'. To check result just click View Post. We also provide <strong>['mg-post-contributors']</strong> shortcode for sidebars to show contributors in list format.
  * Author:          Mahesh Waghmare
  * Author URI:      http://mgwebthemes.com
- * Version:         1.2.
+ * Version:         1.1.
  * License:         GPL2+
  * License URI:     http://www.gnu.org/licenses/gpl-2.0.txt
  *
@@ -22,7 +22,7 @@
  /**
  * Register user fields
  *
- * @since MG Contributors 1.1
+ * @since MG Contributors 1.1 Pro
  */
 require_once('admin/user_profile.php');	
  
@@ -41,8 +41,8 @@ require_once('framework/settings/mg-config.php');
 
 
 // add meta box actions
-add_action( 'load-post.php', 'mgpc_metabox_setup' );
-add_action( 'load-post-new.php', 'mgpc_metabox_setup' );
+add_action( 'load-post.php', 'mg_contributor_metabox_setup' );
+add_action( 'load-post-new.php', 'mg_contributor_metabox_setup' );
 
 
 
@@ -51,10 +51,10 @@ add_action( 'load-post-new.php', 'mgpc_metabox_setup' );
 	 *
 	 * @since MG Contributors 1.0
 	 */
-	function mgpc_metabox_setup() {
+	function mg_contributor_metabox_setup() {
 
 		// 		'add_meta_boxes' hook
-		add_action( 'add_meta_boxes', 'mgpc_init_meta_boxes' );
+		add_action( 'add_meta_boxes', 'mg_add_contributor_post_meta_boxes' );
 
 		// 		'save_post' hook
 		add_action( 'save_post', 'mg_save_contributorpost_class_meta', 10, 2 );
@@ -68,15 +68,15 @@ add_action( 'load-post-new.php', 'mgpc_metabox_setup' );
 	 **/
 
 	// Add new meta box
-	function mgpc_init_meta_boxes() {
+	function mg_add_contributor_post_meta_boxes() {
 
 		add_meta_box(
-			'mg-contributor-class',								// Unique ID
+			'mg-contributor-class',					// Unique ID
 			esc_html__( 'MG Contributors', 'contributors' ),	// Title
-			'mgpc_meta_box_callback',							// Callback function
-			'post',												// Admin page (or post type)
-			'side',												// Context
-			'default'											// Priority
+			'mg_contributor_post_class_meta_box',			// Callback function
+			'post',											// Admin page (or post type)
+			'side',											// Context
+			'default'										// Priority
 		);
 	}
 
@@ -88,7 +88,7 @@ add_action( 'load-post-new.php', 'mgpc_metabox_setup' );
 	 */
 
 	// Show meta box structure
-	function mgpc_meta_box_callback( $object, $box ) { ?>
+	function mg_contributor_post_class_meta_box( $object, $box ) { ?>
 		<?php wp_nonce_field( basename( __FILE__ ), 'mg_post_class_nonce' ); ?>
 
 		<?php
@@ -145,6 +145,37 @@ add_action( 'load-post-new.php', 'mgpc_metabox_setup' );
 						//	@variable $role: regular ALL
 						show_included_contributor($role);
 					}
+
+
+
+					/*?>
+					<h3><?php echo $role;?></h3>
+					<?php 
+					
+					$blogusers = get_users('blog_id=1&orderby=nicename&role=' .$role );
+					
+					foreach ($blogusers as $user) 
+					{
+						// Check CONTRIBUTTORS already SET or NOT SET
+						if(is_array($contributors))
+						{
+							if (in_array( $user->ID, $contributors)) 
+							{
+								echo '<label class="selectit" for="'.$user->ID.'"><input type="checkbox" checked="checked" value="'.$user->ID.'" id="mgpc_contributors" name="mgpc_contributors[]"> '.ucfirst($user->user_nicename).' </label><br />';
+							}
+							else 
+							{
+								echo '<label class="selectit" for="'.$user->ID.'"><input type="checkbox" value="'.$user->ID.'" id="mgpc_contributors" name="mgpc_contributors[]"> '.ucfirst($user->user_nicename).' </label><br />';
+							}
+						}
+						else 
+						{
+							echo '<label class="selectit" for="'.$user->ID.'"><input type="checkbox" value="'.$user->ID.'" id="mgpc_contributors" name="mgpc_contributors[]"> '.ucfirst($user->user_nicename).' </label><br />';
+						}
+					}
+					?>
+					</ul>	
+					<?php 	*/
 				} 
 		}
 		// Meta Box structure ENDs
@@ -197,6 +228,8 @@ add_action( 'load-post-new.php', 'mgpc_metabox_setup' );
 			}
 		} 
 	}	// @function show_included_contributor END
+
+
 
 
 
@@ -281,6 +314,10 @@ add_action( 'load-post-new.php', 'mgpc_metabox_setup' );
 		elseif ( '' == $enable_contributors_value && $enable_value )
 			delete_post_meta( $post_id, $enable, $enable_value );
 	}
+
+
+
+
 
 
 
@@ -654,12 +691,21 @@ function show_contributors_after_post_contents($content) {
  * Enqueue scripts and styles for front-end.
  * Loads style
  */
-function mgpc_styles() {
+function mg_contributor_style() {
 	wp_enqueue_style( 'mgpc_default_css', plugins_url( '/css/style.css', __FILE__ ) );
 	wp_enqueue_style( 'mgpc_dynamic_css', plugins_url( '/framework/settings/style.css', __FILE__ ) );
 
 }
-add_action( 'wp_enqueue_scripts', 'mgpc_styles' );
+add_action( 'wp_enqueue_scripts', 'mg_contributor_style' );
 
 
+
+//  enqueue admin scripts
+add_action( 'admin_enqueue_scripts', 'mgms_enqueue_admin_scripts' );
+function mgms_enqueue_admin_scripts()
+{
+	wp_enqueue_style( 'mgpc_framework_css', plugins_url( '/admin/framework-style.css', __FILE__ ) );
+}
+	
+	
 ?>
