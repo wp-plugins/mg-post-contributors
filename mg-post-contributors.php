@@ -38,8 +38,6 @@ require_once('framework/core/framework.php');
 require_once('framework/settings/mg-config.php');
 
 
-
-
 // add meta box actions
 add_action( 'load-post.php', 'mg_contributor_metabox_setup' );
 add_action( 'load-post-new.php', 'mg_contributor_metabox_setup' );
@@ -145,37 +143,6 @@ add_action( 'load-post-new.php', 'mg_contributor_metabox_setup' );
 						//	@variable $role: regular ALL
 						show_included_contributor($role);
 					}
-
-
-
-					/*?>
-					<h3><?php echo $role;?></h3>
-					<?php 
-					
-					$blogusers = get_users('blog_id=1&orderby=nicename&role=' .$role );
-					
-					foreach ($blogusers as $user) 
-					{
-						// Check CONTRIBUTTORS already SET or NOT SET
-						if(is_array($contributors))
-						{
-							if (in_array( $user->ID, $contributors)) 
-							{
-								echo '<label class="selectit" for="'.$user->ID.'"><input type="checkbox" checked="checked" value="'.$user->ID.'" id="mgpc_contributors" name="mgpc_contributors[]"> '.ucfirst($user->user_nicename).' </label><br />';
-							}
-							else 
-							{
-								echo '<label class="selectit" for="'.$user->ID.'"><input type="checkbox" value="'.$user->ID.'" id="mgpc_contributors" name="mgpc_contributors[]"> '.ucfirst($user->user_nicename).' </label><br />';
-							}
-						}
-						else 
-						{
-							echo '<label class="selectit" for="'.$user->ID.'"><input type="checkbox" value="'.$user->ID.'" id="mgpc_contributors" name="mgpc_contributors[]"> '.ucfirst($user->user_nicename).' </label><br />';
-						}
-					}
-					?>
-					</ul>	
-					<?php 	*/
 				} 
 		}
 		// Meta Box structure ENDs
