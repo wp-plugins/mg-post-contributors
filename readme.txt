@@ -27,6 +27,7 @@ GitHub: [https://github.com/maheshwaghmare/mg-post-contributors]
 Click following link to see how it shown at article page. 
 [http://demo.mgwebthemes.com/how-to-use-mg-post-contributor/]
 
+Check other notes for more details...!
 
 == Installation ==
 
