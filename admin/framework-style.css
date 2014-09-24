@@ -1,0 +1,26 @@
+.plugin {
+float: left;
+border: 1px solid rgb(221, 221, 221);
+width: 48%;
+padding: 0px 0px 10px 0px;
+margin: 0px 0px 0px 10px;
+border-radius: 5px 5px 5px 5px;
+}
+.plugin-meta .title { color: #8DB18D;
+    font-size: 20px;
+    margin: 0px 0px 5px 0px;
+    padding: 0px 0px 2px 0px; font-style: italic; border-bottom: 1px solid #CFCFCF;}
+.plugin-meta .description { margin: 0pt; font-size: 12px; text-align: justify;}
+.plugin-meta .links a {
+font-size: 11px;
+margin-top: 10px;
+padding-top: 7px;
+text-decoration: none;
+background: none repeat scroll 0% 0% rgb(252, 217, 120);
+color: rgb(152, 124, 35);
+border-radius: 3px 3px 3px 3px;
+padding: 1px 5px;
+}
+.plugin-meta {
+    padding: 7px 10px 0px 10px;
+}
