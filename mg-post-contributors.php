@@ -586,14 +586,19 @@ function show_contributors_after_post_contents($content) {
 
 							//	Role
 							if($mgpc['enable-meta-role']) :
-								$show_contributors	.=	" 	<h5 class='author-role'>" .ucfirst($user_info->roles[0]). "</h5>";
+								if(!empty($user_info->roles[0])) {
+									$show_contributors	.=	" 	<h5 class='author-role'>" .ucfirst($user_info->roles[0]). "</h5>";
+								}
 							endif;
 
 
 
 								//	Bio
 								if($mgpc['enable-meta-bio']) :
-									$show_contributors	.=	"	<p class='description'>" .$desc. " </p>";
+									//	check desc url is not empty
+									if(!empty($desc)) {
+										$show_contributors	.=	"	<p class='description'>" .$desc. " </p>";
+									}
 								endif;
 
 								//	Email 
