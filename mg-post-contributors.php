@@ -661,7 +661,7 @@ function show_contributors_after_post_contents($content) {
 function mg_contributor_style() {
 	wp_enqueue_style( 'mgpc_default_css', plugins_url( '/css/style.css', __FILE__ ) );
 	wp_enqueue_style( 'mgpc_dynamic_css', plugins_url( '/framework/settings/style.css', __FILE__ ) );
-
+	wp_enqueue_style( 'mgpc_font_awesome_css', 'http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css' );
 }
 add_action( 'wp_enqueue_scripts', 'mg_contributor_style' );
 
