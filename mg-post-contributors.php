@@ -598,33 +598,38 @@ function show_contributors_after_post_contents($content) {
 
 								//	Email 
 								if($mgpc['enable-meta-email']) :
-									$show_contributors	.=  "	<p class='email'>";
+									//	check email url is not empty
+									if(!empty($author_email)) {
+										$show_contributors	.=  "	<p class='email'>";
 
-									//	Hide Icon Font if it disable
-									if(isset($mgpc['enable-email-iconfont'])) {
-										if($mgpc['enable-email-iconfont']==1) {
+										//	Hide Icon Font if it disable
+										if(isset($mgpc['enable-email-iconfont'])) {
+											if($mgpc['enable-email-iconfont']==1) {
+												$show_contributors	.=  "<i class='mgpc-icon fa fa-envelope-o'> </i>";
+											}
+										} else {
 											$show_contributors	.=  "<i class='mgpc-icon fa fa-envelope-o'> </i>";
 										}
-									} else {
-										$show_contributors	.=  "<i class='mgpc-icon fa fa-envelope-o'> </i>";
+										$show_contributors	.=  $author_email ."</p>";
 									}
-									$show_contributors	.=  $author_email ."</p>";
-									
 								endif;
 
 								// Website
 								if($mgpc['enable-meta-website']) :
-									$show_contributors	.=  "<p class='website'>";
+									//	check website url is not empty
+									if(!empty($author_website)) {
+										$show_contributors	.=  "<p class='website'>";
 
-										//	Hide Icon Font if it disable
-										if(isset($mgpc['enable-website-iconfont'])) {
-											if($mgpc['enable-website-iconfont']==1) {
+											//	Hide Icon Font if it disable
+											if(isset($mgpc['enable-website-iconfont'])) {
+												if($mgpc['enable-website-iconfont']==1) {
+													$show_contributors	.=  "<i class='mgpc-icon fa fa-globe'> </i>";
+												}
+											} else {
 												$show_contributors	.=  "<i class='mgpc-icon fa fa-globe'> </i>";
 											}
-										} else {
-											$show_contributors	.=  "<i class='mgpc-icon fa fa-globe'> </i>";
-										}
-										$show_contributors	.=	$author_website ."</p>";
+											$show_contributors	.=	$author_website ."</p>";
+									}
 								endif;
 
 
