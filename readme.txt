@@ -1,6 +1,6 @@
 === MG Post Contributors ===
 
-Contributors: Mahesh901122
+Contributors: Mahesh901122, shilpapapade
 Plugin Name: MG Post Contributors 
 Plugin URI: http://wordpress.org/plugins/mg-post-contributors
 Tags: post, author, contributors, post contributors, post authors, multiple authors, admin interface
