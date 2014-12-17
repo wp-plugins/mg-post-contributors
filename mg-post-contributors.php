@@ -9,7 +9,7 @@
  * Description:     MG Post Contributors helps Admin users to set multiple authors for single post. Simply selecting authors check boxes at Post Editor. It show list of users with checkboxes and show them at POST. Getting started <strong> 1) </strong> Click 'Activate'  <strong> 2)</strong>  Go to  POST->Add New OR Select existing one i.e. POST->All Posts and select Post <strong> 3) </strong> Choose  'Contributors' and click 'Publish'. To check result just click View Post. We also provide <strong>['mg-post-contributors']</strong> shortcode for sidebars to show contributors in list format.
  * Author:          Mahesh Waghmare
  * Author URI:      http://mgwebthemes.com
- * Version:         1.1.
+ * Version:         1.2.
  * License:         GPL2+
  * License URI:     http://www.gnu.org/licenses/gpl-2.0.txt
  *
