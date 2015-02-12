@@ -85,13 +85,29 @@ if (!class_exists('mgpc')) {
               Used within different fields. Simply examples. Search for ACTUAL DECLARATION for field examples
              * */
             // Background Patterns Reader
+
+            $mgposttypes = array(
+                '1' => 'Posts', 
+                '2' => 'Pages', 
+            );
             /*
             $sample_patterns_path   = ReduxFramework::$_dir . '../settings/patterns/';
             $sample_patterns_url    = ReduxFramework::$_url . '../settings/patterns/';
             */
             $img_url = ReduxFramework::$_url . '../settings/img/';
-
-
+            $mgpc_profiles =  array(
+                'facebook'     =>   'Facebook',
+                'twitter'      =>   'Twitter',
+                'google-plus'  =>   'Google Plus',
+                'wordpress'    =>   'Wordpress',
+                'linkedin'     =>   'Linkedin',
+                'youtube'      =>   'Youtube',
+                'pinterest'    =>   'Pinterest',
+                'instagram'    =>   'Instagram',
+                'tumblr'       =>   'Tumblr',
+                'flickr'       =>   'Flickr',
+                'skype'        =>   'Skype',
+            );
             //  Social Links
             /*$social_links = array();
 
@@ -119,10 +135,14 @@ if (!class_exists('mgpc')) {
                 ),
             );*/
             
-            $this->sections[] = array(
+
+
+
+
+        $this->sections[] = array(
                 'icon'      => 'el-icon-cogs',
                 'title'     => __('Basic', 'mgpc'),
-                'heading'   => __('Basic Settings : HELP', 'mgpc'),
+                'heading'   => __('Basic [HELP] Settings:', 'mgpc'),
 /*                'desc'      => __('', 'mgpc'),*/
                 'subsection' => false,
                 'fields'    => array(
@@ -145,18 +165,151 @@ if (!class_exists('mgpc')) {
 
             $this->sections[] = array(
                 'icon'      => 'el-icon-check-empty',
+                'title'     => __('Social Profiles Options', 'mgpc'),
+                'subsection' => true,
+                'heading'   => __('User Profile Options:', 'mgpc'),
+                'desc'      => __('<p class="description">Enable/Disable social profile and Avatar image. </p>', 'mgpc'),
+                'fields'    => array(
+                    /*array(
+                        'id'       => 'first1',
+                        'type'     => 'first',
+                        'title'    => __('First Element', 'mgpc'),
+                        'default'   => 1,
+                        'on'        => 'Enabled',
+                        'off'       => 'Disabled',
+                        'hint'      => array(
+                            'title'     => 'Enable / Disable Social Profile Links',
+                            'content'   => 'Enable / Disable Social profile links from user profile window. <i>Default: unselected.</i>.',
+                        ),
+                    ),*/
+                    array(
+                        'id'       => 'enable-profile-image-option',
+                        'type'     => 'switch',
+                        'title'    => __('Profile Image?', 'mgpc'),
+                        'default'   => 1,
+                        'on'        => 'Enabled',
+                        'off'       => 'Disabled',
+                        'hint'      => array(
+                            'title'     => 'Enable / Disable Social Profile Image',
+                            'content'   => 'Enable / Disable Social profile image from user profile window. <i>Default: Enabled.</i>.',
+                        ),
+                    ),
+                    array(
+                        'id'       => 'enable-social-profile-links',
+                        'type'     => 'switch',
+                        'title'    => __('Social Profile?', 'mgpc'),
+                        'default'   => 1,
+                        'on'        => 'Enabled',
+                        'off'       => 'Disabled',
+                        'hint'      => array(
+                            'title'     => 'Enable / Disable Social Profile Links',
+                            'content'   => 'Enable / Disable Social profile links from user profile window. <i>Default: unselected.</i>.',
+                        ),
+                    ),
+                    array(
+                        'id'        => 'mgpc_social_profiles',
+                        'type'      => 'sortable',
+                        'mode'      => 'checkbox', // checkbox or text
+                        'title'     => __('Available Social Profiles', 'redux-framework-demo'),
+                        'options'   => $mgpc_profiles,
+                        'hint'      => array(
+                            'title'     => 'Add / Remove / Sort Social Profile Links',
+                            'content'   => 'Add / Remove / Sort Social profile links from user profile window. <i>Default: unselected.</i>.',
+                        ),
+                        'required'  => array('enable-social-profile-links', "=", 1),
+                    ),
+                    /*array(
+                            'id'        => 'show-all-social-profile',
+                            'type'      => 'callback',
+                            'title'     => __('All Profile Social Links:', 'mgpc'),
+                            'subtitle'  => __('Current active profiles', 'mgpc'),
+                            'callback'  => 'show_all_social_profile_links'
+                    ),*/
+                    /*array(
+                        'id'        => 'opt-check-sortable',
+                        'type'      => 'sortable',
+                        'mode'      => 'checkbox', // checkbox or text
+                        'title'     => __('Sortable Text Option', 'mgms-framework'),
+                        'subtitle'  => __('Define and reorder these however you want.', 'mgms-framework'),
+                        'desc'      => __('This is the description field, again good for additional info.', 'mgms-framework'),
+                        'options'   => array(
+                            'si1' => 'Test',
+                            'si2' => 'test2',
+                            'si3' => 'test3',
+                        )
+                    ),*/
+                    
+                    //  Create social media links
+/*                    array(
+                        'id'        => 'create-social-links-profile',
+                        'type'      => 'switch',
+                        'title'     => __('Show all profile links:', 'mgpc'),
+                        'subtitle'  => __('', 'mgpc'),
+                      'desc'      => __('If Disable, Disappear Image block. <small><i>Default: Enable</i></small>', 'mgpc'),
+                        'default'   => 0,
+                        'on'        => 'Enabled',
+                        'off'       => 'Disabled',
+                    ),*/
+/*                    array(
+                            'id'        => 'show-all-social-profile',
+                            'type'      => 'callback',
+                            'title'     => __('All Profile Social Links:', 'mgpc'),
+                            'subtitle'  => __('Current active profiles', 'mgpc'),
+                            'callback'  => 'show_all_social_profile_links'
+                    ),*/
+                    
+/*                    array(
+                        'id'        => 'opt-slides',
+                        'type'      => 'slides',
+                        'title'     => __('Slides Options', 'redux-framework-demo'),
+                        'subtitle'  => __('Unlimited slides with drag and drop sortings.', 'redux-framework-demo'),
+                        'desc'      => __('This field will store all slides values into a multidimensional array to use into a foreach loop.', 'redux-framework-demo'),
+                        'placeholder'   => array(
+                            'title'         => __('This is a title', 'redux-framework-demo'),
+                            'description'   => __('Description Here', 'redux-framework-demo'),
+                            'url'           => __('Give us a link!', 'redux-framework-demo'),
+                        ),
+                    ),*/
+                 ),
+            );
+
+            $this->sections[] = array(
+                'icon'      => 'el-icon-check-empty',
                 'title'     => __('Meta Box', 'mgpc'),
                 'subsection' => true,
                 'heading'   => __('Meta Box Settings:', 'mgpc'),
                 'desc'      => __('<p class="description">Change Meta Box Structure</p>', 'mgpc'),
                 'fields'    => array(
+                    /*array(
+                        'id'        => 'opt-multi-select',
+                        'type'      => 'select',
+                        'multi'     => true,
+                        'title'     => __('Multi Select Option', 'redux-framework-demo'),
+                        'subtitle'  => __('No validation can be done on this field type', 'redux-framework-demo'),
+                        'desc'      => __('This is the description field, again good for additional info.', 'redux-framework-demo'),
+                        
+                        //Must provide key => value pairs for radio options
+                        'options'   => $mgposttypes,
+                        'default'   => array('1'),
+                    ),
+                    array(
+                        'id'        => 'set-contributors-for',
+                        'type'      => 'select',
+                        'data'      => 'post_type',
+                        'multi'     => true,
+                        'title'     => __('Assign Post Types:', 'mgpc'),
+                        'hint'      => array(
+                            'title'     => 'Assign Post Types',
+                            'content'   => 'Assign custom post types for contributors list. <i>Default: post</i>.',
+                        )
+                    ),*/
                     array(
                         'id'        => 'exclude-roles',
                         'type'      => 'select',
                         'data'      => 'roles',
                         'multi'     => true,
                         'title'     => __('Exclude Roles:', 'mgpc-framework'),
-/*                        'subtitle'  => __('No validation can be done on this field type', 'mgpc-framework'),*/
+                        /*'subtitle'  => __('No validation can be done on this field type', 'mgpc-framework'),*/
                         'desc'      => __('Exclude unwanted roles from contributors list.', 'mgpc-framework'),
                         'hint'      => array(
                             'title'     => 'Exclude Roles',
@@ -169,7 +322,7 @@ if (!class_exists('mgpc')) {
             $this->sections[] = array(
                 'icon'      => 'el-icon-cogs',
                 'title'     => __('Structure', 'mgpc'),
-                'heading'   => __('Structure Settings : HELP', 'mgpc'),
+                'heading'   => __('Structure [HELP] Section: ', 'mgpc'),
 /*                'desc'      => __('', 'mgpc'),*/
                 'subsection' => false,
                 'fields'    => array(
@@ -182,6 +335,97 @@ if (!class_exists('mgpc')) {
                         ),
                     ),
             );
+
+            /*$this->sections[] = array(
+                'icon'      => 'el-icon-check-empty',
+                'title'     => __('Carousel', 'mgpc'),
+                'heading'   => __('Carousel List:', 'mgpc'),
+                'subsection' => true,
+                'desc'      => __('<p class="description">Here, You can Hide / Show contributors image, name, role, bio, social links etc.</p>', 'mgpc'),
+                'fields'    => array(
+                    
+                    array(
+                        'id'        => 'carousel-items',
+                        'type'      => 'text',
+                        'title'     => __('Show no. of Authors:', 'mgpc'),
+                        'desc'      => __('<small><i>Default: 2</i></small>'),
+                        'default'   => '2',
+                    ),
+                    array(
+                        'id'        => 'carousel-slidespeed',
+                        'type'      => 'text',
+                        'title'     => __('Slide Speed:', 'mgpc'),
+                        'desc'      => __('<small><i>Default: 200</i></small>'),
+                        'default'   => '200',
+                    ),
+                    array(
+                        'id'        => 'carousel-autoplay',
+                        'type'      => 'switch',
+                        'title'     => __('Auto Play:', 'mgpc'),
+                        'subtitle'  => __('', 'mgpc'),
+                        'default'   => false,
+                        'on'        => 'True',
+                        'off'       => 'False',
+                        'hint'      => array(
+                            'title'     => 'Carousel Auto Play',
+                            'content'   => 'If True, Auto Paly Contributors carousel. <small><i>Default: True</i></small>',
+                        )
+                    ),
+                    array(
+                        'id'        => 'carousel-stoponhover',
+                        'type'      => 'switch',
+                        'title'     => __('Stop On Hover:', 'mgpc'),
+                        'subtitle'  => __('', 'mgpc'),
+                        'default'   => false,
+                        'on'        => 'True',
+                        'off'       => 'False',
+                        'hint'      => array(
+                            'title'     => 'Stop Carousel On Hover',
+                            'content'   => 'If True, Contributors Carousel Stop on Hover. <small><i>Default: False</i></small>',
+                        )
+                    ),
+                    array(
+                        'id'        => 'carousel-navigation',
+                        'type'      => 'switch',
+                        'title'     => __('Navigation:', 'mgpc'),
+                        'subtitle'  => __('', 'mgpc'),
+                        'default'   => false,
+                        'on'        => 'True',
+                        'off'       => 'False',
+                        'hint'      => array(
+                            'title'     => 'Navigation',
+                            'content'   => 'If True, Contributors Carousel Show Navigation. <small><i>Default: False</i></small>',
+                        )
+                    ),
+                    array(
+                        'id'        => 'carousel-pagination',
+                        'type'      => 'switch',
+                        'title'     => __('Pagination:', 'mgpc'),
+                        'subtitle'  => __('', 'mgpc'),
+                        'default'   => true,
+                        'on'        => 'True',
+                        'off'       => 'False',
+                        'hint'      => array(
+                            'title'     => 'Pagination',
+                            'content'   => 'If True, Contributors Carousel Show Pagination. <small><i>Default: True</i></small>',
+                        )
+                    ),
+                    array(
+                        'id'        => 'carousel-responsive',
+                        'type'      => 'switch',
+                        'title'     => __('Responsive:', 'mgpc'),
+                        'subtitle'  => __('', 'mgpc'),
+                        'default'   => true,
+                        'on'        => 'True',
+                        'off'       => 'False',
+                        'hint'      => array(
+                            'title'     => 'Responsive',
+                            'content'   => 'If True, Contributors Carousel is Responsive. <small><i>Default: True</i></small>',
+                        )
+                    ),
+                ),
+            );*/
+
             $this->sections[] = array(
                 'icon'      => 'el-icon-check-empty',
                 'title'     => __('Author Block', 'mgpc'),
@@ -189,6 +433,19 @@ if (!class_exists('mgpc')) {
                 'subsection' => true,
                 'desc'      => __('<p class="description">Here, You can Hide / Show contributors image, name, role, bio, social links etc.</p>', 'mgpc'),
                 'fields'    => array(
+                    array(
+                        'id'        => 'enable-carousel-list',
+                        'type'      => 'switch',
+                        'title'     => __('Carousel List:', 'mgpc'),
+                        'subtitle'  => __('', 'mgpc'),
+                        'default'   => 0,
+                        'on'        => 'Enabled',
+                        'off'       => 'Disabled',
+                        'hint'      => array(
+                            'title'     => 'Carousel List',
+                            'content'   => 'If Disable, Disappear Contributors carousel. <small><i>Default: Disabled</i></small>',
+                        )
+                    ),
                     array(
                         'id'        => 'author-block-view',
                         'type'      => 'image_select',
@@ -248,7 +505,7 @@ if (!class_exists('mgpc')) {
                         'title'     => __('Role:', 'mgpc'),
                         'subtitle'  => __('Hide / Show Role', 'mgpc'),
                         'desc'      => __('If Hide, Disappear Role from list. <small><i>Default: Hide</i></small>', 'mgpc'),
-                        'default'   => 0,
+                        'default'   => 1,
                         'on'        => 'Show',
                         'off'       => 'Hide',
                         'required'  => array('enable-block-meta', "=", 1),
@@ -259,7 +516,7 @@ if (!class_exists('mgpc')) {
                         'title'     => __('Biographical Info:', 'mgpc'),
                         'subtitle'  => __('Hide / Show Biographical Info', 'mgpc'),
                         'desc'      => __('If Hide, Disappear Biographical Info from list. <small><i>Default: Hide</i></small>', 'mgpc'),
-                        'default'   => 0,
+                        'default'   => 1,
                         'on'        => 'Show',
                         'off'       => 'Hide',
                         'required'  => array('enable-block-meta', "=", 1),
@@ -270,7 +527,7 @@ if (!class_exists('mgpc')) {
                         'title'     => __('Email:', 'mgpc'),
                         'subtitle'  => __('Hide / Show Email', 'mgpc'),
                         'desc'      => __('If Hide, Disappear Email from list. <small><i>Default: Hide</i></small>', 'mgpc'),
-                        'default'   => 0,
+                        'default'   => 1,
                         'on'        => 'Show',
                         'off'       => 'Hide',
                         'required'  => array('enable-block-meta', "=", 1),
@@ -281,7 +538,7 @@ if (!class_exists('mgpc')) {
                         'title'     => __('Website:', 'mgpc'),
                         'subtitle'  => __('Hide / Show Website', 'mgpc'),
                         'desc'      => __('If Hide, Disappear Website from list. <small><i>Default: Hide</i></small>', 'mgpc'),
-                        'default'   => 0,
+                        'default'   => 1,
                         'on'        => 'Show',
                         'off'       => 'Hide',
                         'required'  => array('enable-block-meta', "=", 1),
@@ -352,7 +609,7 @@ if (!class_exists('mgpc')) {
             $this->sections[] = array(
                 'icon'      => 'el-icon-eye-open',
                 'title'     => __('Styling', 'mgpc'),
-                'heading'   => __('Styling Section:', 'mgpc'),
+                'heading'   => __('Styling [HELP] Section:', 'mgpc'),
                 'subsection' => false,
                 'desc'      => __('<p class="description">Here, You can Change styling of contributors image, name, role, bio, social links etc.</p>', 'mgpc'),
                 'fields'    => array(
@@ -1456,7 +1713,7 @@ if (!class_exists('mgpc')) {
                 // TYPICAL -> Change these values as you need/desire
                 'opt_name'          => 'mgpc',            // This is where your data is stored in the database and also becomes your global variable name.
                 'display_name'      => 'MG Post Contributors',     // Name that appears at the top of your panel
-                'display_version'   => '1.2.',  // Version that appears at the top of your panel
+                'display_version'   => '1.3.',  // Version that appears at the top of your panel
                 'menu_type'         => 'menu',                  //Specify if the admin menu should appear or not. Options: menu or submenu (Under appearance only)
                 'allow_sub_menu'    => true,                    // Show the sections below the admin menu item or not
                 'menu_title'        => __('MGPC Settings', 'mgpc'),
@@ -1531,7 +1788,7 @@ if (!class_exists('mgpc')) {
 
             // SOCIAL ICONS -> Setup custom links in the footer for quick links in your panel footer icons.
             $this->args['share_icons'][] = array(
-                'url'   => 'https://github.com/maheshwaghmare/mg-parallax-slider',
+                'url'   => 'https://github.com/maheshwaghmare',
                 'title' => 'Visit us on GitHub',
                 'icon'  => 'el-icon-github'
                 //'img'   => '', // You can use icon OR img. IMG needs to be a full URL.
@@ -1612,26 +1869,22 @@ if(!function_exists('mgms_our_plugin_list')):
     <div class="plugin-list-wrapper">
         <ul class="plugin-list">
             <li class="plugin">
-                <img src="<?php echo plugins_url( "../../images/intro-mg-post-contributors.png", __FILE__ ); ?>" />
-                <div class="plugin-meta">
-                    <h2 class="title">MG Post Contributors</h2>
-                    <p class="description">Use this plugin to set multiple contributors for single post. Simply selecting contributors check boxes at Post Editor. It show list of users with checkboxes and show them at POST.</p>
-                    <P class="links">
-                        <a style="float: left;" href="http://wordpress.org/plugins/mg-parallax-slider">Wordpress Repository</a>
-                        <a style="float: right;" href="http://wordpress.org/plugins/mg-parallax-slider">Plugin Home</a>
-                    </p>
-                </div>
+                <img src="<?php echo plugins_url( "../../images/intro-mg-parallax-slider.png", __FILE__ ); ?>" />
+                <h2 class="title">MG Post Contributors</h2>
+                <p class="description">Use this plugin to set multiple contributors for single post. Simply selecting contributors check boxes at Post Editor. It show list of users with checkboxes and show them at POST.</p>
+                <P class="links">
+                    <a style="float: left;" href="http://wordpress.org/plugins/mg-parallax-slider">Wordpress Repository</a>
+                    <a style="float: right;" href="http://wordpress.org/plugins/mg-parallax-slider">Plugin Home</a>
+                </p>
             </li>
             <li class="plugin">
-                <img src="<?php echo plugins_url( "../../images/intro-mg-parallax-slider.png", __FILE__ ); ?>" />
-                <div class="plugin-meta">
-                    <h2 class="title">MG Parallax Slider</h2>
-                    <p class="description">Create parallax slider for your website. It's very simple and flexible to use. It has same admin panel for css styling and slide customization. To check how it works visit:</p>
-                    <P class="links">
-                        <a style="float: left;" href="http://wordpress.org/plugins/mg-parallax-slider">Wordpress Repository</a>
-                        <a style="float: right;" href="http://wordpress.org/plugins/mg-parallax-slider">Plugin Home</a>
-                    </p>
-                </div>
+                <img src="<?php echo plugins_url( "../../images/intro-mg-post-contributors.png", __FILE__ ); ?>" />
+                <h2 class="title">MG Parallax Slider</h2>
+                <p class="description">Create parallax slider for your website. It provide ultimate admin panel for slide customization. It has same admin panel for customization.</p>
+                <P class="links">
+                    <a style="float: left;" href="http://wordpress.org/plugins/mg-parallax-slider">Wordpress Repository</a>
+                    <a style="float: right;" href="http://wordpress.org/plugins/mg-parallax-slider">Plugin Home</a>
+                </p>
             </li>
         </ul>
     <?php }
@@ -1650,7 +1903,7 @@ if(!function_exists('mgms_our_theme_list')):
     <div class="theme-list-wrapper">
         <ul class="theme-list">
             <li class="theme">
-                <img src="<?php echo plugins_url( "../../images/shivaji-The-theme-1.0.png", __FILE__ ); ?>" style="width: 100% ! important;" />
+                <img src="<?php echo plugins_url( "../../images/shivaji-the-theme-1.0.png", __FILE__ ); ?>" style="width: 100% ! important;" />
             </li>
         </ul>
     </div>
@@ -1717,6 +1970,42 @@ if(!function_exists('help_styling')):
     <?php }
 endif;
 
+
+/*
+ *  Help - Skip Roles
+ *
+ *--------------------------------------------------*/
+if(!function_exists('show_all_social_profile_links')):
+
+    function show_all_social_profile_links() {
+        /*global $mgpc;
+        $p = $mgpc['opt-check-sortable'];*/
+//        print_r($mgpc['opt-check-sortable']);
+
+        //apply_filters('mgpc_social_profiles', $p );
+
+/*        $mgpc_profiles = array(
+            "facebook",
+            "twitter",
+            "google-plus",
+            "wordpress",
+            "linkedin",
+            "youtube",
+            "pinterest",
+            "instagram",
+            "tumblr",
+            "flickr",
+            "skype"
+        );
+*/
+        /*if(has_action('mgpc_show_all_social_profile_links')) {
+            do_action("mgpc_show_all_social_profile_links" );
+        }
+        else {
+            echo "No profiles found.";
+        }*/
+    }
+endif;
 
 
 ?>

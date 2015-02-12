@@ -64,8 +64,8 @@
 
                 $this->value = wp_parse_args( $this->value, $defaults );
 
-                echo '<input data-id="' . $this->field['id'] . '" name="' . $this->field['name'] . '[color]' . $this->field['name_suffix'] . '" id="' . $this->field['id'] . '-color" class="redux-color_rgba redux-color_rgba-init ' . $this->field['class'] . '"  type="text" value="' . $this->value['color'] . '"  data-default-color="' . $this->field['default']['color'] . '" data-defaultvalue="' . $this->field['default']['color'] . '" data-opacity="' . $this->value['alpha'] . '" />';
-                echo '<input data-id="' . $this->field['id'] . '-alpha" name="' . $this->field['name'] . '[alpha]' . $this->field['name_suffix'] . '" id="' . $this->field['id'] . '-alpha" type="hidden" value="' . $this->value['alpha'] . '" />';
+                echo '<input data-id="' . $this->field['id'] . '" name="' . $this->field['name'] . $this->field['name_suffix'] . '[color]' . '" id="' . $this->field['id'] . '-color" class="redux-color_rgba redux-color_rgba-init ' . $this->field['class'] . '"  type="text" value="' . $this->value['color'] . '"  data-default-color="' . ( isset( $this->field['default']['color'] ) ? $this->field['default']['color'] : "" ) . '" data-defaultvalue="' . ( isset( $this->field['default']['color'] ) ? $this->field['default']['color'] : "" ) . '" data-opacity="' . $this->value['alpha'] . '" />';
+                echo '<input data-id="' . $this->field['id'] . '-alpha" name="' . $this->field['name'] . $this->field['name_suffix'] . '[alpha]' . '" id="' . $this->field['id'] . '-alpha" type="hidden" value="' . $this->value['alpha'] . '" />';
 
                 if ( ! isset( $this->field['transparent'] ) || $this->field['transparent'] !== false ) {
                     $tChecked = "";
@@ -90,7 +90,8 @@
                     if ( $this->value['alpha'] == "0.00" || empty( $this->value['color'] ) ) {
                         $style = $mode . ':transparent;';
                     } elseif ( ! empty( $this->value['color'] ) ) {
-                        $style = $mode . ':rgba(' . Redux_Helpers::hex2rgba( $this->value['color'] ) . ',' . $this->value['alpha'] . ');';
+                        $style = $mode . ':rgb(' . Redux_Helpers::hex2rgba( $this->value['color'] ) . ');';
+                        $style .= $mode . ':rgba(' . Redux_Helpers::hex2rgba( $this->value['color'] ) . ',' . $this->value['alpha'] . ');';
                     }
 
                     if ( ! empty( $this->field['output'] ) && is_array( $this->field['output'] ) ) {
@@ -133,12 +134,22 @@
                     true
                 );
 
-                wp_enqueue_style(
+                redux_enqueue_style(
+                    $this->parent,
                     'redux-field-color_rgba-css',
                     ReduxFramework::$_url . 'inc/fields/color_rgba/field_color_rgba.css',
+                    ReduxFramework::$_dir . 'inc/fields/color_rgba',
+                    array(),
                     time(),
-                    true
-                );
+                    false
+                );                 
+                
+//                wp_enqueue_style(
+//                    'redux-field-color_rgba-css',
+//                    ReduxFramework::$_url . 'inc/fields/color_rgba/field_color_rgba.css',
+//                    time(),
+//                    true
+//                );
             }
         }
     }

@@ -89,7 +89,7 @@
                     echo '<li>';
 
                     $checked = "";
-                    $name    = 'name="' . $this->field['name'] . '[' . $k . ']' . $this->field['name_suffix'] . '" ';
+                    $name    = 'name="' . $this->field['name'] . $this->field['name_suffix'] . '[' . $k . ']' . '" ';
                     if ( $this->field['mode'] == "checkbox" ) {
                         $value_display = $this->value[ $k ];
 
@@ -98,20 +98,26 @@
                         }
                         $class .= " checkbox_sortable";
                         $name = "";
-                        echo '<input type="hidden" name="' . $this->field['name'] . '[' . $k . ']' . $this->field['name_suffix'] . '" id="' . $this->field['id'] . '-' . $k . '-hidden" value="' . $value_display . '" />';
+                        echo '<input type="hidden" name="' . $this->field['name'] . $this->field['name_suffix'] . '[' . $k . ']' . '" id="' . $this->field['id'] . '-' . $k . '-hidden" value="' . $value_display . '" />';
 
                         echo '<div class="checkbox-container">';
                     } else {
                         $value_display = isset( $this->value[ $k ] ) ? $this->value[ $k ] : '';
 
                     }
+                    
+                    if ($this->field['mode'] != "checkbox") {
+                        echo '<label class="bugger" for="' . $this->field['id'] . '[' . $k . ']"><strong>' . $k . '</strong></label>';
+                        echo "<br />";                     
+                    }
+                    
                     echo '<input rel="' . $this->field['id'] . '-' . $k . '-hidden" class="' . $class . '" ' . $checked . 'type="' . $this->field['mode'] . '" ' . $name . 'id="' . $this->field['id'] . '[' . $k . ']" value="' . esc_attr( $value_display ) . '" placeholder="' . $nicename . '" />';
 
                     echo '<span class="compact drag"><i class="el-icon-move icon-large"></i></span>';
                     if ( $this->field['mode'] == "checkbox" || ( isset( $this->field['label'] ) && $this->field['label'] == true ) ) {
                         if ( $this->field['mode'] != "checkbox" ) {
-                            echo "<br />";
-                            echo '<label for="' . $this->field['id'] . '[' . $k . ']"><strong>' . $k . '</strong></label>';
+                            //echo "<br />";
+                            //echo '<label for="' . $this->field['id'] . '[' . $k . ']"><strong>' . $k . '</strong></label>';
                         } else {
                             echo '<label for="' . $this->field['id'] . '[' . $k . ']"><strong>' . $options[ $k ] . '</strong></label>';
                         }
@@ -125,13 +131,22 @@
             }
 
             function enqueue() {
-
-                wp_enqueue_style(
+                redux_enqueue_style(
+                    $this->parent,
                     'redux-field-sortable-css',
                     ReduxFramework::$_url . 'inc/fields/sortable/field_sortable.css',
+                    ReduxFramework::$_dir . 'inc/fields/sortable',
+                    array(),
                     time(),
-                    true
-                );
+                    false
+                ); 
+                
+//                wp_enqueue_style(
+//                    'redux-field-sortable-css',
+//                    ReduxFramework::$_url . 'inc/fields/sortable/field_sortable.css',
+//                    time(),
+//                    true
+//                );
 
                 wp_enqueue_script(
                     'redux-field-sortable-js',

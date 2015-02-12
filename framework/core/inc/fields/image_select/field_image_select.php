@@ -198,19 +198,30 @@
                     true
                 );
 
-                wp_enqueue_style(
+                redux_enqueue_style(
+                    $this->parent,
                     'redux-field-image-select-css',
                     ReduxFramework::$_url . 'inc/fields/image_select/field_image_select.css',
+                    ReduxFramework::$_dir . 'inc/fields/image_select',
+                    array(),
                     time(),
-                    true
-                );
+                    false
+                ); 
+                
+//                wp_enqueue_style(
+//                    'redux-field-image-select-css',
+//                    ReduxFramework::$_url . 'inc/fields/image_select/field_image_select.css',
+//                    time(),
+//                    true
+//                );
             }
 
             public function getCSS( $mode = '' ) {
                 $css   = '';
                 $value = $this->value;
 
-                if ( ! empty( $value ) ) {
+                $output = '';
+                if ( ! empty( $value ) && ! is_array($value) ) {
                     switch ( $mode ) {
                         case 'background-image':
                             $output = "background-image: url('" . $value . "');";

@@ -6,10 +6,10 @@
  * Plugin Name:     MG POST Contributors
  * Plugin URI:      http://mgwebthemes.com
  * Github URI:      https://github.com/maheshwaghmare/mg-post-contributors
- * Description:     MG Post Contributors helps Admin users to set multiple authors for single post. Simply selecting authors check boxes at Post Editor. It show list of users with checkboxes and show them at POST. Getting started <strong> 1) </strong> Click 'Activate'  <strong> 2)</strong>  Go to  POST->Add New OR Select existing one i.e. POST->All Posts and select Post <strong> 3) </strong> Choose  'Contributors' and click 'Publish'. To check result just click View Post. We also provide <strong>['mg-post-contributors']</strong> shortcode for sidebars to show contributors in list format.
+ * Description:     MG Post Contributors helps Admin users to set multiple authors for single post. Simply selecting authors check boxes at Post Editor. It show list of users with checkboxes and show them at POST.
  * Author:          Mahesh Waghmare
  * Author URI:      http://mgwebthemes.com
- * Version:         1.2.
+ * Version:         1.3.
  * License:         GPL2+
  * License URI:     http://www.gnu.org/licenses/gpl-2.0.txt
  *
@@ -18,14 +18,21 @@
  * @copyright       2014 MG Web Themes
  */
 
+ /**
+ * Register new extentions
+ *
+ * @since MG Contributors 1.4.
+ */
+//require_once('framework/loader.php');
 
  /**
  * Register user fields
  *
- * @since MG Contributors 1.1 Pro
+ * @since MG Contributors 1.3.
  */
-require_once('admin/user_profile.php');	
- 
+require_once('admin/actions.php');
+require_once('admin/settings.php');
+
 
  /**
  * Initialize meta box setup functions
@@ -38,10 +45,20 @@ require_once('framework/core/framework.php');
 require_once('framework/settings/mg-config.php');
 
 
+
+ /**
+ * Register user fields
+ *
+ * @since MG Contributors 1.1
+ */
+
+// apply_filters('mgms_enable_social_profile_links', false);
+ require_once('admin/user_profile.php');
+
+
 // add meta box actions
 add_action( 'load-post.php', 'mg_contributor_metabox_setup' );
 add_action( 'load-post-new.php', 'mg_contributor_metabox_setup' );
-
 
 
 	 /**
@@ -69,12 +86,12 @@ add_action( 'load-post-new.php', 'mg_contributor_metabox_setup' );
 	function mg_add_contributor_post_meta_boxes() {
 
 		add_meta_box(
-			'mg-contributor-class',					// Unique ID
+			'mg-contributor-class',								// Unique ID
 			esc_html__( 'MG Contributors', 'contributors' ),	// Title
-			'mg_contributor_post_class_meta_box',			// Callback function
-			'post',											// Admin page (or post type)
-			'side',											// Context
-			'default'										// Priority
+			'mg_contributor_post_class_meta_box',				// Callback function
+			'post',												// Admin page (or post type)
+			'side',												// Context
+			'default'											// Priority
 		);
 	}
 
@@ -143,6 +160,37 @@ add_action( 'load-post-new.php', 'mg_contributor_metabox_setup' );
 						//	@variable $role: regular ALL
 						show_included_contributor($role);
 					}
+
+
+
+					/*?>
+					<h3><?php echo $role;?></h3>
+					<?php 
+					
+					$blogusers = get_users('blog_id=1&orderby=nicename&role=' .$role );
+					
+					foreach ($blogusers as $user) 
+					{
+						// Check CONTRIBUTTORS already SET or NOT SET
+						if(is_array($contributors))
+						{
+							if (in_array( $user->ID, $contributors)) 
+							{
+								echo '<label class="selectit" for="'.$user->ID.'"><input type="checkbox" checked="checked" value="'.$user->ID.'" id="mgpc_contributors" name="mgpc_contributors[]"> '.ucfirst($user->user_nicename).' </label><br />';
+							}
+							else 
+							{
+								echo '<label class="selectit" for="'.$user->ID.'"><input type="checkbox" value="'.$user->ID.'" id="mgpc_contributors" name="mgpc_contributors[]"> '.ucfirst($user->user_nicename).' </label><br />';
+							}
+						}
+						else 
+						{
+							echo '<label class="selectit" for="'.$user->ID.'"><input type="checkbox" value="'.$user->ID.'" id="mgpc_contributors" name="mgpc_contributors[]"> '.ucfirst($user->user_nicename).' </label><br />';
+						}
+					}
+					?>
+					</ul>	
+					<?php 	*/
 				} 
 		}
 		// Meta Box structure ENDs
@@ -283,13 +331,6 @@ add_action( 'load-post-new.php', 'mg_contributor_metabox_setup' );
 	}
 
 
-
-
-
-
-
-
-
 /**
  * Custom CSS
  *
@@ -349,8 +390,8 @@ function mgpc_custom_html_before() {
  */
 function mgpc_custom_html_after() {
 	global $mgpc;
-	if(!empty($mgpc['mgpc-additional-code-html-before'])) {
-		return $mgpc['mgpc-additional-code-html-before'];
+	if(!empty($mgpc['mgpc-additional-code-html-after'])) {
+		return $mgpc['mgpc-additional-code-html-after'];
 	}
 }
 
@@ -384,7 +425,6 @@ function show_contributors_after_post_contents($content) {
 	//	Get POST ID
 	$post_id = get_the_ID();
 
-	
 	// Check post id is not EMPTY
 	if ( !empty( $post_id ) ) {
 		
@@ -396,22 +436,49 @@ function show_contributors_after_post_contents($content) {
 	//	Avoid from blog page [Show only if post is opened]
 	if(!is_singular('post')) {
 		return $content;
-	}
-	
+	}	
 
 	//Get Post Contetns
 	$content_post = get_post( $post_id );
 	$content = $content_post->post_content;
 
-	if(!empty($enable_value) && $enable_value =="on" )
-	{
-		//	Check meta_key ('mgpc_contributors') is not EMPTY
-		if(isset($contributors) && !empty($contributors))
-		{
-			if($contributors != '')
-			{
+	if(!empty($enable_value) && $enable_value =="on" ) {
 
+		//	Check meta_key ('mgpc_contributors') is not EMPTY
+		if(isset($contributors) && !empty($contributors)) {
+
+			if($contributors != '') {
 				$show_contributors    = "";
+
+				/**
+				 * Enable Carouse slider of contributors
+				 *
+				 * @since MG Contributors 1.3
+				 */
+					//	Set data attributes for carousel
+					$data_enable = $data_items = $data_slidespeed = $data_autoplay = $data_stoponhover = $data_navigation = $data_pagination = $data_responsive = '';
+					global $mgpc;
+
+					if($mgpc['enable-carousel-list']) {
+						wp_enqueue_style( 'mgpc_owl_carousel_css');
+						wp_enqueue_style( 'mgpc_owl_carousel_theme');
+						wp_enqueue_script( 'mgpc_owl_carousel_js');
+
+
+						do_action('mgpc_show_carousel');
+						//	IMP
+						//wp_enqueue_script( 'mgpc_carousel_op' );
+						/*$data_enable = 'data-enable="1"';				
+						if($mgpc['carousel-items']!='') 	  {	$data_items = 'data-items="'. $mgpc['carousel-items']. '"';	}
+						if($mgpc['carousel-slidespeed']!='')  {	$data_slidespeed = 'data-slidespeed="'. $mgpc['carousel-slidespeed']. '"';	}
+						if($mgpc['carousel-autoplay']!='') 	  {	$data_autoplay = 'data-autoplay="'. $mgpc['carousel-autoplay']. '"';	}
+						if($mgpc['carousel-stoponhover']!='') {	$data_stoponhover = 'data-stoponhover="'. $mgpc['carousel-stoponhover']. '"';	}
+						if($mgpc['carousel-navigation']!='')  {	$data_navigation = 'data-navigation="'. $mgpc['carousel-navigation']. '"';	}
+						if($mgpc['carousel-pagination']!='')  {	$data_pagination = 'data-pagination="'. $mgpc['carousel-pagination']. '"';	}
+						if($mgpc['carousel-responsive']!='')  {	$data_responsive = 'data-responsive="'. $mgpc['carousel-responsive']. '"';	}
+*/
+					}
+
 
 				/**
 				 * Print Custom CSS, JS, HTML [Before]
@@ -424,9 +491,8 @@ function show_contributors_after_post_contents($content) {
 				// add custom code CSS, JS, HTML BEFORE
 
 				$show_contributors   .= 	"<div id='mgpc-wrapper'>";
-				$show_contributors   .= 	"	<div id='mgpc'>";
+				$show_contributors   .= 	"	<div id='mgpc'  " .$data_enable. " " .$data_items. " " .$data_slidespeed. " " .$data_autoplay. " " .$data_stoponhover. " " .$data_navigation. " " .$data_pagination. " " .$data_responsive. ">";
 						
-
 						if(isset($mgpc['enable-label'])) {
 							if($mgpc['enable-label']) {
 								if(isset($mgpc['enable-label-text']) && !empty($mgpc['enable-label-text'])) {
@@ -436,7 +502,8 @@ function show_contributors_after_post_contents($content) {
 								}
 							}
 						}
-				$show_contributors  .= 	"<div class='mgpc-list-wrapper'><ul class='mgpc-list'>";
+
+				$show_contributors  .= 	"<div class='mgpc-list-wrapper'><ul class='mgpc-list' id='mgpc-list-carousel'>";
 				
 				foreach($contributors as $user_id)
 				{
@@ -476,16 +543,16 @@ function show_contributors_after_post_contents($content) {
 					} else {
 						//	Pass regular variable $role
 						//	@variable $role: regular ALL
+
 						$show_contributors .= show_included_contributor_list($user_id);
 					}
 				}
 
 				$show_contributors	.=	"			</ul><!-- .mgpc-list -->";
 				$show_contributors	.=	"		</div><!-- .author-block -->";
-				$show_contributors	.=	"		</div><!-- .author-block-wrapper -->";
+				//$show_contributors	.=	"		</div><!-- .author-block-wrapper -->";
 				$show_contributors	.=	"	</div><!-- .mgpc --> ";
 				$show_contributors	.=	"</div><!-- .mgpc-wrapper -->";
-
 
 				/**
 				 * Print Custom HTML [After]
@@ -493,7 +560,6 @@ function show_contributors_after_post_contents($content) {
 				 * @since MG Contributors 1.2
 				 */
 				$show_contributors .= mgpc_custom_html_after();
-
 
 				return $content . $show_contributors;
 			}
@@ -507,150 +573,184 @@ function show_contributors_after_post_contents($content) {
 }
 
 
-				/**
-				* @single-author
-				*	Show single author SKIP excluded role authors
-				*
-				* @since MG Contributors 1.2
-				*/
-				function show_included_contributor_list($user_id) {
-					global $mgpc;
-					$show_contributors = "";
-					//	Get Gravators of Contributor
-						
-						$user_avatar = get_avatar( $user_id,  $size = '100'); 
+/**
+* @single-author
+*	Show single author SKIP excluded role authors
+*
+* @since MG Contributors 1.2
+*/
+function show_included_contributor_list($user_id) {
+	global $mgpc;
+	/*print_r($mgpc['opt-slides']);*/
+	$show_contributors = "";
+	//	Get Gravators of Contributor
+		
+		$user_avatar = get_avatar( $user_id,  $size = '100'); 
 
-						//	Get user details by using $user_id
-						$user_info = get_userdata( $user_id );
+		//	Get user details by using $user_id
+		$user_info = get_userdata( $user_id );
 
-						$desc 			= get_the_author_meta( 'description', $user_id );
-						$author_email 	= get_the_author_meta( 'user_email', $user_id );
-						$author_website = get_the_author_meta( 'user_url', $user_id );
+		$desc 			= get_the_author_meta( 'description', $user_id );
+		$author_email 	= get_the_author_meta( 'user_email', $user_id );
+		$author_website = get_the_author_meta( 'user_url', $user_id );
 
-						
-						$user_name = $user_info->user_firstname. " " .$user_info->user_lastname;
-						
-						if($user_name==" " || empty($user_name)) {
-							$user_name = $user_info->user_nicename;
+		
+		$user_name = $user_info->user_firstname. " " .$user_info->user_lastname;
+		
+		if($user_name==" " || empty($user_name)) {
+			$user_name = $user_info->user_nicename;
+		}
+
+		$show_contributors  .= 	"<li class='mgpc-author item' >";
+
+		 /**
+		 * @basic-settings
+		 *	Image Block
+		 *
+		 * @since MG Contributors 1.1
+		 */
+		if ($mgpc['enable-block-image']) :
+			$show_contributors  .=  "<div class='mgpc-block image-block-wrapper' >";
+			$show_contributors  .=  "	<div class='image-block' >";
+
+			/**
+			 *	Check custom avatar image set or not
+			 *	if yes set uploaded image else use avatar.
+			 * @since MG Contributors 1.3.
+			 */
+			$imgUrl = get_the_author_meta( 'mgpc_original_pic', $user_id );
+			if($imgUrl) {
+				$show_contributors  .=	"<img src='" .$imgUrl. "' />";
+			} else {
+				$show_contributors  .= 			$user_avatar;
+			}
+
+			$show_contributors  .=  "	</div><!-- image-block -->";
+			$show_contributors  .=  "</div><!-- image-block-wrapper -->";
+		endif;	//	.image-block
+
+
+		 /**
+		 * @basic-settings
+		 * 	Meta Block
+		 *
+		 * @since MG Contributors 1.1
+		 */
+		 if ($mgpc['enable-block-meta']) :
+
+
+		 	//	Check view Horizontal / Verticle
+		 	$view = "";
+		 	$spacing = "";
+
+		 	if(isset($mgpc['author-block-view'])){
+		 		if($mgpc['author-block-view']==2) {
+		 			$view = "verticle-block";
+		 			$spacing = "verticle-spacing";
+		 		}  else if(!$mgpc['enable-block-image']) {
+				 	$view = "horizontal-block";
+			 	} else {
+					$view = "horizontal-block";
+		 			$spacing = "horizontal-spacing";	
+			 	}
+			}
+
+			$show_contributors  .=  "<div class='mgpc-block author-block-wrapper ". $view ." ' >";
+			$show_contributors  .=  "	<div class='author-block " .$spacing. "' >";
+
+			// 	Name
+			if($mgpc['enable-meta-name']) :
+				$show_contributors	.=	" 	<h4 class='author-name'>" .ucfirst($user_name). "</h4>";
+			endif; 
+
+			//	Role
+			if($mgpc['enable-meta-role']) :
+				$show_contributors	.=	" 	<h5 class='author-role'>" .ucfirst($user_info->roles[0]). "</h5>";
+			endif;
+
+
+
+				//	Bio
+				if($mgpc['enable-meta-bio']) :
+					$show_contributors	.=	"	<p class='description'>" .$desc. " </p>";
+				endif;
+
+				//	Email 
+				if($mgpc['enable-meta-email'] && $author_email != '') :
+					$show_contributors	.=  "	<p class='email'>";
+
+					//	Hide Icon Font if it disable
+					if(isset($mgpc['enable-email-iconfont'])) {
+						if($mgpc['enable-email-iconfont']==1) {
+							$show_contributors	.=  "<i class='mgpc-icon fa fa-envelope-o'> </i>";
 						}
+					} else {
+						$show_contributors	.=  "<i class='mgpc-icon fa fa-envelope-o'> </i>";
+					}
+					$show_contributors	.=  $author_email ."</p>";
+					
+				endif;
 
-						$show_contributors  .= 	"<li class='mgpc-author'>";
+				// Website
+				if($mgpc['enable-meta-website'] && $author_website != '') :
+					$show_contributors	.=  "<p class='website'>";
 
-						 /**
-						 * @basic-settings
-						 *	Image Block
-						 *
-						 * @since MG Contributors 1.1
-						 */
-						if ($mgpc['enable-block-image']) :
-							$show_contributors  .=  "<div class='mgpc-block image-block-wrapper' >";
-							$show_contributors  .=  "	<div class='image-block' >";
-							$show_contributors  .= 			$user_avatar;
-							$show_contributors  .=  "	</div><!-- image-block -->";
-							$show_contributors  .=  "</div><!-- image-block-wrapper -->";
-						endif;	//	.image-block
-
-
-						 /**
-						 * @basic-settings
-						 * 	Meta Block
-						 *
-						 * @since MG Contributors 1.1
-						 */
-						 if ($mgpc['enable-block-meta']) :
-
-
-						 	//	Check view Horizontal / Verticle
-						 	$view = "";
-						 	$spacing = "";
-
-						 	if(isset($mgpc['author-block-view'])){
-						 		if($mgpc['author-block-view']==2) {
-						 			$view = "verticle-block";
-						 			$spacing = "verticle-spacing";
-						 		}  else if(!$mgpc['enable-block-image']) {
-								 	$view = "horizontal-block";
-							 	} else {
-									$view = "horizontal-block";
-						 			$spacing = "horizontal-spacing";	
-							 	}
+						//	Hide Icon Font if it disable
+						if(isset($mgpc['enable-website-iconfont'])) {
+							if($mgpc['enable-website-iconfont']==1) {
+								$show_contributors	.=  "<i class='mgpc-icon fa fa-globe'> </i>";
 							}
-
-							$show_contributors  .=  "<div class='mgpc-block author-block-wrapper ". $view ." ' >";
-							$show_contributors  .=  "	<div class='author-block " .$spacing. "' >";
-
-							// 	Name
-							if($mgpc['enable-meta-name']) :
-								$show_contributors	.=	" 	<h4 class='author-name'>" .ucfirst($user_name). "</h4>";
-							endif; 
-
-							//	Role
-							if($mgpc['enable-meta-role']) :
-								$show_contributors	.=	" 	<h5 class='author-role'>" .ucfirst($user_info->roles[0]). "</h5>";
-							endif;
+						} else {
+							$show_contributors	.=  "<i class='mgpc-icon fa fa-globe'> </i>";
+						}
+						$show_contributors	.=	$author_website ."</p>";
+				endif;
 
 
+			//	Show social links
+			if($mgpc['enable-meta-social-links']) :
+				$show_contributors	.=	"<div class='social-links-wrapper'>";						
+				$show_contributors	.=	"	<ul class='social-links'>";
 
-								//	Bio
-								if($mgpc['enable-meta-bio']) :
-									$show_contributors	.=	"	<p class='description'>" .$desc. " </p>";
-								endif;
-
-								//	Email 
-								if($mgpc['enable-meta-email']) :
-									$show_contributors	.=  "	<p class='email'>";
-
-									//	Hide Icon Font if it disable
-									if(isset($mgpc['enable-email-iconfont'])) {
-										if($mgpc['enable-email-iconfont']==1) {
-											$show_contributors	.=  "<i class='mgpc-icon fa fa-envelope-o'> </i>";
-										}
-									} else {
-										$show_contributors	.=  "<i class='mgpc-icon fa fa-envelope-o'> </i>";
+					//	get social profiles from admin panel
+					$profile_status = $mgpc['enable-social-profile-links'];
+					if(isset($profile_status) && $profile_status!=0) {
+						$get_profiles = $mgpc['mgpc_social_profiles'];
+						if(is_array($get_profiles) && !empty($get_profiles)) {
+							foreach ($get_profiles as $key => $value) {
+								if($value) {
+									$activeLink = get_the_author_meta( 'mgpc_social_link_' .$key, $user_id );
+									if(!empty($activeLink)) {
+										$show_contributors	.=  "<li class='mgpc-social-link ". $key ."'><a href='". $activeLink ."'><i class='mgpc-icon fa fa-". $key ."'></i></a></li>";
 									}
-									$show_contributors	.=  $author_email ."</p>";
-									
-								endif;
+								}
+							}
+						}
+					}
 
-								// Website
-								if($mgpc['enable-meta-website']) :
-									$show_contributors	.=  "<p class='website'>";
-
-										//	Hide Icon Font if it disable
-										if(isset($mgpc['enable-website-iconfont'])) {
-											if($mgpc['enable-website-iconfont']==1) {
-												$show_contributors	.=  "<i class='mgpc-icon fa fa-globe'> </i>";
-											}
-										} else {
-											$show_contributors	.=  "<i class='mgpc-icon fa fa-globe'> </i>";
-										}
-										$show_contributors	.=	$author_website ."</p>";
-								endif;
-
-
-							//	Show social links
-							if($mgpc['enable-meta-social-links']) :
-								$show_contributors	.=	"<div class='social-links-wrapper'>";						
-								$show_contributors	.=	"	<ul class='social-links'>";
-											//	get profiles from array
-											global $profiles;
-											foreach($profiles as $socialProfile) {
-												$activeLink = get_the_author_meta( 'mgpc_social_link_' .$socialProfile, $user_id );
-												if($activeLink) {
-													$show_contributors	.=  "<li class='mgpc-social-link ". $socialProfile ."'><a href='". $activeLink ."'><i class='mgpc-icon fa fa-". $socialProfile ."'></i></a></li>";
-												}
-											}
-								$show_contributors	.=  "	</ul>";
-								$show_contributors	.=  "</div>";
-							endif; //	.social links
+					//	get profiles from array
+					/*global $profiles;
+					echo '<pre>';
+					print_r($profiles);
+					echo '</pre>';*/
+						
+					/*foreach($profiles as $socialProfile) {
+						$activeLink = get_the_author_meta( 'mgpc_social_link_' .$socialProfile, $user_id );
+						if($activeLink) {
+							$show_contributors	.=  "<li class='mgpc-social-link ". $socialProfile ."'><a href='". $activeLink ."'><i class='mgpc-icon fa fa-". $socialProfile ."'></i></a></li>";
+						}
+					}*/
+				$show_contributors	.=  "	</ul>";
+				$show_contributors	.=  "</div>";
+			endif; //	.social links
 
 
-						endif; //	.meta-block
+		endif; //	.meta-block
 
-						$show_contributors	.=	"</li>";
+		$show_contributors	.=	"</li>";
 
-						return $show_contributors;
-				}	// .Show single author
+		return $show_contributors;
+}	// .Show single author
 
 
 
@@ -661,18 +761,50 @@ function show_contributors_after_post_contents($content) {
 function mg_contributor_style() {
 	wp_enqueue_style( 'mgpc_default_css', plugins_url( '/css/style.css', __FILE__ ) );
 	wp_enqueue_style( 'mgpc_dynamic_css', plugins_url( '/framework/settings/style.css', __FILE__ ) );
-	wp_enqueue_style( 'mgpc_font_awesome_css', 'http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css' );
+	wp_enqueue_style( 'mgpc_dynamic_fontawesome', plugins_url( '/css/font-awesome-4.0.3/css/font-awesome.min.css', __FILE__ ) );
 }
 add_action( 'wp_enqueue_scripts', 'mg_contributor_style' );
 
-
-
-//  enqueue admin scripts
-add_action( 'admin_enqueue_scripts', 'mgms_enqueue_admin_scripts' );
-function mgms_enqueue_admin_scripts()
-{
-	wp_enqueue_style( 'mgpc_framework_css', plugins_url( '/admin/framework-style.css', __FILE__ ) );
+function mgpc_carousal() {
+	wp_register_style( 'mgpc_owl_carousel_css', plugins_url( '/carousal/owl.carousel.css', __FILE__ ) );
+	wp_register_style( 'mgpc_owl_carousel_theme', plugins_url( '/carousal/owl.theme.css', __FILE__ ) );
+	wp_register_script( 'mgpc_owl_carousel_js', plugins_url( '/carousal/owl.carousel.min.js', __FILE__ ) , array(), '1.0', true );
 }
+add_action( 'wp_enqueue_scripts', 'mgpc_carousal' );
+
+
+//  enqueue scripts for image upload
+/*add_action( 'admin_enqueue_scripts', 'mgms_enqueue_admin_rating' );
+function mgms_enqueue_admin_rating()
+{
+	wp_enqueue_script( 'mgpc_rating_js', plugins_url( '/js/rating.js', __FILE__ ) , array(), '1.0', true );
+	wp_enqueue_style( 'mgpc_rating_css', plugins_url( '/css/rating.css', __FILE__ ) );
+}*/
+
+add_action( 'admin_enqueue_scripts', 'mgms_enqueue_admin_styling' );
+function mgms_enqueue_admin_styling()
+{
+	wp_enqueue_style( 'mgms_admin_style', plugins_url( '/admin/mgms-admin.css', __FILE__ ) );
+}
+
+//	Show author carousel if enabled.
+add_action('mgpc_show_carousel','mgpc_show_carousel_init');
+function mgpc_show_carousel_init()
+{
+	$outputJS   = "<script type='text/javascript'>";
+	$outputJS  .= 	'jQuery(document).ready(function() {';
+	$outputJS  .= 	'	jQuery("#mgpc-list-carousel").owlCarousel({';
+	$outputJS  .= 	'			autoPlay: 3000,';
+	$outputJS  .= 	'			items : 1,';
 	
+/*	$outputJS  .= 	'			itemsDesktop : [1199,1],';
+	$outputJS  .= 	'			itemsDesktopSmall : [979,1]';*/
 	
+	$outputJS  .= 	'			pagination: false,';
+	$outputJS  .= 	'			});';
+	$outputJS  .= 	'    });';
+	$outputJS .= "</script>";
+	echo $outputJS;
+}
+
 ?>

@@ -13,15 +13,9 @@
     redux.field_objects = redux.field_objects || {};
     redux.field_objects.background = redux.field_objects.background || {};
 
-    $( document ).ready(
-        function() {
-            //redux.field_objects.background.init();
-        }
-    );
-
     redux.field_objects.background.init = function( selector ) {
         if ( !selector ) {
-            selector = $( document ).find( '.redux-container-background' );
+            selector = $( document ).find( ".redux-group-tab:visible" ).find( '.redux-container-background:visible' );
         }
 
         $( selector ).each(
@@ -31,12 +25,16 @@
                 if ( !el.hasClass( 'redux-field-container' ) ) {
                     parent = el.parents( '.redux-field-container:first' );
                 }
+                
+                if ( parent.is( ":hidden" ) ) { // Skip hidden fields
+                    return;
+                }
+                
                 if ( parent.hasClass( 'redux-field-init' ) ) {
                     parent.removeClass( 'redux-field-init' );
                 } else {
                     return;
                 }
-
                 // Remove the image button
                 el.find( '.redux-remove-background' ).unbind( 'click' ).on(
                     'click', function( e ) {
@@ -183,19 +181,17 @@
             return;
         }
         var hide = true;
-        var split = parent.data( 'id' ) + '][';
+
         var css = 'height:' + preview.height() + 'px;';
         $( parent ).find( '.redux-background-input' ).each(
             function() {
                 var data = $( this ).serializeArray();
                 data = data[0];
-
                 if ( data && data.name.indexOf( '[background-' ) != -1 ) {
-
                     if ( data.value !== "" ) {
                         hide = false;
-                        data.name = data.name.split( split );
-                        data.name = data.name[1].replace( ']', '' );
+                        data.name = data.name.split( '[background-' );
+                        data.name = 'background-'+data.name[1].replace( ']', '' );
                         if ( data.name == "background-image" ) {
                             css += data.name + ':url("' + data.value + '");';
                         } else {

@@ -164,7 +164,7 @@ if ( !class_exists ( 'ReduxFramework_slides' ) ) {
                     echo '<input type="hidden" class="upload" name="' . $this->field[ 'name' ] . '[' . $x . '][image]' . $this->field['name_suffix'] .'" id="' . $this->field[ 'id' ] . '-image_url_' . $x . '" value="' . $slide[ 'image' ] . '" readonly="readonly" />';
                     echo '<input type="hidden" class="upload-height" name="' . $this->field[ 'name' ] . '[' . $x . '][height]' . $this->field['name_suffix'] .'" id="' . $this->field[ 'id' ] . '-image_height_' . $x . '" value="' . $slide[ 'height' ] . '" />';
                     echo '<input type="hidden" class="upload-width" name="' . $this->field[ 'name' ] . '[' . $x . '][width]' . $this->field['name_suffix'] .'" id="' . $this->field[ 'id' ] . '-image_width_' . $x . '" value="' . $slide[ 'width' ] . '" /></li>';
-                    echo '<li><a href="javascript:void(0);" class="button deletion redux-slides-remove">' . sprintf ( __ ( 'Delete %s', 'redux-framework' ), $this->field[ 'content_title' ] ) . '</a></li>';
+                    echo '<li><a href="javascript:void(0);" class="button deletion redux-slides-remove">' . __ ( 'Delete', 'redux-framework' ) . '</a></li>';
                     echo '</ul></div></fieldset></div>';
                     $x ++;
                 }
@@ -217,7 +217,7 @@ if ( !class_exists ( 'ReduxFramework_slides' ) ) {
                 echo '<input type="hidden" class="upload-height" name="' . $this->field[ 'name' ] . '[' . $x . '][height]' . $this->field['name_suffix'] .'" id="' . $this->field[ 'id' ] . '-image_height_' . $x . '" value="" />';
                 echo '<input type="hidden" class="upload-width" name="' . $this->field[ 'name' ] . '[' . $x . '][width]' . $this->field['name_suffix'] .'" id="' . $this->field[ 'id' ] . '-image_width_' . $x . '" value="" /></li>';
                 echo '<input type="hidden" class="upload-thumbnail" name="' . $this->field[ 'name' ] . '[' . $x . '][thumb]' . $this->field['name_suffix'] .'" id="' . $this->field[ 'id' ] . '-thumb_url_' . $x . '" value="" /></li>';
-                echo '<li><a href="javascript:void(0);" class="button deletion redux-slides-remove">' . sprintf ( __ ( 'Delete %s', 'redux-framework' ), $this->field[ 'content_title' ] ) . '</a></li>';
+                echo '<li><a href="javascript:void(0);" class="button deletion redux-slides-remove">' . __ ( 'Delete', 'redux-framework' ) . '</a></li>';
                 echo '</ul></div></fieldset></div>';
             }
             echo '</div><a href="javascript:void(0);" class="button redux-slides-add button-primary" rel-id="' . $this->field[ 'id' ] . '-ul" rel-name="' . $this->field[ 'name' ] . '[title][]' . $this->field['name_suffix'] .'">' . sprintf ( __ ( 'Add %s', 'redux-framework' ), $this->field[ 'content_title' ] ) . '</a><br/>';
@@ -242,27 +242,47 @@ if ( !class_exists ( 'ReduxFramework_slides' ) ) {
                 true
             );
 
-            wp_enqueue_style (
-                'redux-field-media-css', 
-                ReduxFramework::$_url . 'inc/fields/media/field_media.css', 
-                time (), 
-                true
-            );
+            redux_enqueue_style(
+                $this->parent,
+                'redux-field-media-css',
+                ReduxFramework::$_url . 'inc/fields/media/field_media.css',
+                ReduxFramework::$_dir . 'inc/fields/media',
+                array(),
+                time(),
+                false
+            );             
+            
+//            wp_enqueue_style (
+//                'redux-field-media-css', 
+//                ReduxFramework::$_url . 'inc/fields/media/field_media.css', 
+//                time (), 
+//                true
+//            );
 
             wp_enqueue_script (
                 'redux-field-slides-js', 
                 ReduxFramework::$_url . 'inc/fields/slides/field_slides' . Redux_Functions::isMin () . '.js', 
-                array( 'jquery', 'jquery-ui-core', 'jquery-ui-accordion', 'wp-color-picker' ), 
+                array( 'jquery', 'jquery-ui-core', 'jquery-ui-accordion', 'wp-color-picker', 'redux-field-media-js' ), 
                 time (), 
                 true
             );
 
-            wp_enqueue_style (
-                'redux-field-slides-css', 
-                ReduxFramework::$_url . 'inc/fields/slides/field_slides.css', 
-                time (), 
-                true
-            );
+            redux_enqueue_style(
+                $this->parent,
+                'redux-field-slides-css',
+                ReduxFramework::$_url . 'inc/fields/slides/field_slides.css',
+                ReduxFramework::$_dir . 'inc/fields/slides',
+                array(),
+                time(),
+                false
+            );               
+            
+//            wp_enqueue_style (
+//                'redux-field-slides-css', 
+//                ReduxFramework::$_url . 'inc/fields/slides/field_slides.css', 
+//                time (), 
+//                true
+//            );
         }
     }
 
