@@ -60,9 +60,7 @@ Login to http://demo.mgwebthemes.com/wp-admin/  to use live "MG Post Contributor
     User Name : demo
     Password : demo 
 
-	
-[youtube https://www.youtube.com/watch?v=x03jmQ9ajUQ]
-	
+
 == Installation ==
 
 1. Upload `mg-post-contributors` to the `/wp-content/plugins/` directory
@@ -90,6 +88,7 @@ Login to http://demo.mgwebthemes.com/wp-admin/  to use live "MG Post Contributor
 == Changelog ==
 = Version: 1.4. Release =
 IMPROVEMENT: User can enable/disable social profile links or profile image uploader from 'Your Profile' window.
+FIX: update_usermeta() with update_user_meta()
 
 = Version: 1.3. Release =
 ADD: Upload Author Image option for user

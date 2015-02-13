@@ -2,6 +2,7 @@
 
 = Version: 1.4. Release =
 IMPROVEMENT: User can enable/disable social profile links or profile image uploader from 'Your Profile' window.
+FIX: update_usermeta() with update_user_meta()
 
 = Version: 1.3. Release =
 ADD: User can enable/disable social profile links.
