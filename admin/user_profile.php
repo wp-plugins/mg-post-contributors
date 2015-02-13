@@ -125,7 +125,7 @@ function mgpc_save_user_profile_fields( $user_id ) {
 	if(isset($get_profiles)) {
 		foreach($get_profiles as $key => $value) {
 			$getLink = 'mgpc_social_link_'. $key;
-			update_usermeta( $user_id, esc_attr( $getLink ), $_POST[$getLink] );
+			update_user_meta( $user_id, esc_attr( $getLink ), $_POST[$getLink] );
 		}
 	}
 	update_user_meta( $user_id, 'mgpc_original_pic', $_POST[ 'mgpc_original_pic' ] );
